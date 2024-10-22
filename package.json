@@ -3,7 +3,7 @@
   "main": "build/index.js",
   "version": "1.0.0",
   "module": "build/index.es.js",
-  "types":"build/index.d.ts",
+  "types": "build/index.d.ts",
   "files": [
     "build"
   ],
@@ -23,6 +23,7 @@
     "babel-preset-react-app": "^10.0.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
+    "husky": "^9.1.4",
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
@@ -36,11 +37,13 @@
     "sass-loader": "^16.0.2",
     "tailwind-merge": "^2.5.4",
     "tailwindcss": "^3.4.14",
-    "typescript": "^5.6.3",
-    "husky": "^9.1.4"
+    "typescript": "^5.6.3"
   },
   "peerDependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
+  },
+  "dependencies": {
+    "ad-bs-converter": "github:techgaun/ad-bs-converter"
   }
 }
