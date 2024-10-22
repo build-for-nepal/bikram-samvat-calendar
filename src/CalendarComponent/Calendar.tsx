@@ -1,83 +1,147 @@
 import dayjs from 'dayjs';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { generateDate, months } from '../util/calendar';
-import cn from '../util/cn';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import cn from '../util/cn';
+import { CalendarProps } from '../types/Calender';
 
-export default function Calendar() {
-  const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+export default function Calendar({
+  wrapperClass = '',
+  theme = {
+    today: 'bg-red-600 text-white',
+    currentMonth: 'text-gray-600',
+    selected: 'bg-black text-white',
+    hover: 'hover:bg-black hover:text-white',
+    header: 'font-semibold',
+    dayHeader: 'text-sm text-center text-gray-500',
+  },
+  onChange,
+  minDate,
+  maxDate,
+}: CalendarProps) {
   const currentDate = dayjs();
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
+  const [selectedMonth, setSelectedMonth] = useState(today.month());
+  const [selectedYear, setSelectedYear] = useState(today.year());
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(selectDate.toDate());
+    }
+  }, [selectDate, onChange]);
+
+  const isDateSelectable = (date: dayjs.Dayjs) => {
+    const isAfterMin = minDate ? date.isAfter(minDate) || date.isSame(minDate) : true;
+    const isBeforeMax = maxDate ? date.isBefore(maxDate) || date.isSame(maxDate) : true;
+    return isAfterMin && isBeforeMax;
+  };
+
+  const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const month = parseInt(event.target.value);
+    setSelectedMonth(month);
+    setToday(today.month(month).year(selectedYear));
+  };
+
+  const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const year = parseInt(event.target.value);
+    setSelectedYear(year);
+    setToday(today.year(year).month(selectedMonth));
+  };
+
   return (
-    <div className="flex gap-10 sm:divide-x justify-center sm:w-1/2 mx-auto  h-screen items-center sm:flex-row flex-col">
-      <div className="w-96 h-96 ">
-        <div className="flex justify-between items-center">
-          <h1 className="select-none font-semibold">
-            {months[today.month()]}, {today.year()}
+    <div className={cn('max-w-96 border p-5 shadow-md', wrapperClass)}>
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex items-center">
+          <select
+            value={selectedMonth}
+            onChange={handleMonthChange}
+            className="mr-2 p-1 border rounded"
+          >
+            {months.map((month, index) => (
+              <option key={index} value={index}>
+                {month}
+              </option>
+            ))}
+          </select>
+          <select value={selectedYear} onChange={handleYearChange} className="p-1 border rounded">
+            {Array.from({ length: 10 }, (_, i) => today.year() - 5 + i).map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="flex gap-5 items-center">
+          <GrFormPrevious
+            className="w-5 h-5 cursor-pointer hover:scale-105 transition-all"
+            onClick={() => {
+              const newMonth = today.month() === 0 ? 11 : today.month() - 1;
+              const newYear = newMonth === 11 ? today.year() - 1 : today.year();
+              setToday(today.month(newMonth).year(newYear));
+              setSelectedMonth(newMonth);
+              setSelectedYear(newYear);
+            }}
+          />
+          <h1
+            className="cursor-pointer hover:scale-105 transition-all"
+            onClick={() => {
+              setToday(currentDate);
+              setSelectDate(currentDate);
+              setSelectedMonth(currentDate.month());
+              setSelectedYear(currentDate.year());
+            }}
+          >
+            Today
           </h1>
-          <div className="flex gap-10 items-center ">
-            <GrFormPrevious
-              className="w-5 h-5 cursor-pointer hover:scale-105 transition-all"
-              onClick={() => {
-                setToday(today.month(today.month() - 1));
-              }}
-            />
+          <GrFormNext
+            className="w-5 h-5 cursor-pointer hover:scale-105 transition-all"
+            onClick={() => {
+              const newMonth = today.month() === 11 ? 0 : today.month() + 1;
+              const newYear = newMonth === 0 ? today.year() + 1 : today.year();
+              setToday(today.month(newMonth).year(newYear));
+              setSelectedMonth(newMonth);
+              setSelectedYear(newYear);
+            }}
+          />
+        </div>
+      </div>
+      <div className="grid grid-cols-7">
+        {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, index) => (
+          <h1 key={index} className={cn('h-14 w-14 grid place-content-center', theme.dayHeader)}>
+            {day}
+          </h1>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-7">
+        {generateDate(today.month(), today.year()).map(({ date, currentMonth, today }, index) => (
+          <div
+            key={index}
+            className="p-2 text-center h-14 grid place-content-center text-sm border-t"
+          >
             <h1
-              className=" cursor-pointer hover:scale-105 transition-all"
+              className={cn(
+                'h-10 w-10 rounded-full grid place-content-center transition-all cursor-pointer select-none',
+                theme.hover,
+                {
+                  [theme.today]: today,
+                  [theme.currentMonth]: currentMonth,
+                  [theme.selected]:
+                    selectDate.toDate().toDateString() === date.toDate().toDateString(),
+                  'opacity-50 cursor-not-allowed': !isDateSelectable(date),
+                }
+              )}
               onClick={() => {
-                setToday(currentDate);
+                if (isDateSelectable(date)) {
+                  setSelectDate(date);
+                }
               }}
             >
-              Today
+              {date.date()}
             </h1>
-            <GrFormNext
-              className="w-5 h-5 cursor-pointer hover:scale-105 transition-all"
-              onClick={() => {
-                setToday(today.month(today.month() + 1));
-              }}
-            />
           </div>
-        </div>
-        <div className="grid grid-cols-7 ">
-          {days.map((day, index) => {
-            return (
-              <h1
-                key={index}
-                className="text-sm text-center h-14 w-14 grid place-content-center text-gray-500 select-none"
-              >
-                {day}
-              </h1>
-            );
-          })}
-        </div>
-
-        <div className=" grid grid-cols-7 ">
-          {generateDate(today.month(), today.year()).map(({ date, currentMonth, today }, index) => {
-            return (
-              <div
-                key={index}
-                className="p-2 text-center h-14 grid place-content-center text-sm border-t"
-              >
-                <h1
-                  className={cn(
-                    currentMonth ? '' : 'text-gray-400',
-                    today ? 'bg-red-600 text-white' : '',
-                    selectDate.toDate().toDateString() === date.toDate().toDateString()
-                      ? 'bg-black text-white'
-                      : '',
-                    'h-10 w-10 rounded-full grid place-content-center hover:bg-black hover:text-white transition-all cursor-pointer select-none'
-                  )}
-                  onClick={() => {
-                    setSelectDate(date);
-                  }}
-                >
-                  {date.date()}
-                </h1>
-              </div>
-            );
-          })}
-        </div>
+        ))}
       </div>
     </div>
   );
