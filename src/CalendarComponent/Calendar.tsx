@@ -64,11 +64,7 @@ export default function Calendar({
               </option>
             ))}
           </select>
-          <select
-            value={selectedYear}
-            onChange={handleYearChange}
-            className="p-1 border rounded"
-          >
+          <select value={selectedYear} onChange={handleYearChange} className="p-1 border rounded">
             {Array.from({ length: 10 }, (_, i) => today.year() - 5 + i).map((year) => (
               <option key={year} value={year}>
                 {year}
@@ -112,7 +108,7 @@ export default function Calendar({
       </div>
       <div className="grid grid-cols-7">
         {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, index) => (
-          <h1 key={index} className={cn("h-14 w-14 grid place-content-center", theme.dayHeader)}>
+          <h1 key={index} className={cn('h-14 w-14 grid place-content-center', theme.dayHeader)}>
             {day}
           </h1>
         ))}
@@ -120,7 +116,10 @@ export default function Calendar({
 
       <div className="grid grid-cols-7">
         {generateDate(today.month(), today.year()).map(({ date, currentMonth, today }, index) => (
-          <div key={index} className="p-2 text-center h-14 grid place-content-center text-sm border-t">
+          <div
+            key={index}
+            className="p-2 text-center h-14 grid place-content-center text-sm border-t"
+          >
             <h1
               className={cn(
                 'h-10 w-10 rounded-full grid place-content-center transition-all cursor-pointer select-none',
@@ -128,7 +127,8 @@ export default function Calendar({
                 {
                   [theme.today]: today,
                   [theme.currentMonth]: currentMonth,
-                  [theme.selected]: selectDate.toDate().toDateString() === date.toDate().toDateString(),
+                  [theme.selected]:
+                    selectDate.toDate().toDateString() === date.toDate().toDateString(),
                   'opacity-50 cursor-not-allowed': !isDateSelectable(date),
                 }
               )}
