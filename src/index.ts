@@ -1,2 +1,2 @@
-import Calendar from "./CalendarComponent/Calendar";
+import Calendar from './CalendarComponent/Calendar';
 export { Calendar };
