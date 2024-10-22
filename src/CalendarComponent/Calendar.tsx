@@ -1,8 +1,13 @@
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import { generateDate, months } from "../util/calendar";
-import cn from "../util/cn";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import cn from "../util/cn";
+
+export interface CalenderProps  {
+	wrapperClass?:string
+
+}
 
 export default function Calendar() {
   const days = ["S", "M", "T", "W", "T", "F", "S"];
@@ -10,8 +15,7 @@ export default function Calendar() {
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
   return (
-    <div className="flex gap-10 sm:divide-x justify-center sm:w-1/2 mx-auto  h-screen items-center sm:flex-row flex-col">
-      <div className="w-96 h-96 ">
+      <div className="w-96 h-96">
         <div className="flex justify-between items-center">
           <h1 className="select-none font-semibold">
             {months[today.month()]}, {today.year()}
@@ -61,15 +65,12 @@ export default function Calendar() {
                   className="p-2 text-center h-14 grid place-content-center text-sm border-t"
                 >
                   <h1
-                    className={cn(
-                      currentMonth ? "" : "text-gray-400",
-                      today ? "bg-red-600 text-white" : "",
-                      selectDate.toDate().toDateString() ===
-                        date.toDate().toDateString()
-                        ? "bg-black text-white"
-                        : "",
-                      "h-10 w-10 rounded-full grid place-content-center hover:bg-black hover:text-white transition-all cursor-pointer select-none"
-                    )}
+                    className={cn('h-10 w-10 rounded-full grid place-content-center hover:bg-black hover:text-white transition-all cursor-pointer select-none',{
+						'text-gray-60': currentMonth,
+						"bg-red-600 text-white": today,
+						'bg-black text-white' : selectDate.toDate().toDateString() === date.toDate().toDateString()
+
+					})}
                     onClick={() => {
                       setSelectDate(date);
                     }}
@@ -82,6 +83,5 @@ export default function Calendar() {
           )}
         </div>
       </div>
-    </div>
   );
 }
