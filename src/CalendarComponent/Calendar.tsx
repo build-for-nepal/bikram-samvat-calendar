@@ -41,7 +41,7 @@ export default function Calendar({
 
   useEffect(() => {
     if (onChange) {
-      onChange(selectDate.enDate.toDate(), selectDate.npDate);
+      onChange(selectDate.enDate.clone().toDate(), selectDate.npDate);
     }
   }, [selectDate, onChange]);
 
