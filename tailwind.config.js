@@ -4,7 +4,12 @@ module.exports = {
      "./src/**/*.tsx"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors:{
+        'muted':'#f0efeb',
+        'primary':"#f7ede2"
+      }
+    },
   },
   plugins: [],
 }

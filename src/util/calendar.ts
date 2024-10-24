@@ -1,42 +1,34 @@
-import dayjs from 'dayjs';
+var adbs = require("ad-bs-converter");
 
-export const generateDate = (month = dayjs().month(), year = dayjs().year()) => {
-  const firstDateOfMonth = dayjs().year(year).month(month).startOf('month');
-  const lastDateOfMonth = dayjs().year(year).month(month).endOf('month');
+export const generateDate = (month:number, year:number,iToday:number =1) => {
+ const bs2ad =  adbs.bs2ad(`${year}/${month+1}/01`)
+ 
+ const db2bs = adbs.ad2bs(`${bs2ad.year}/${bs2ad.month}/${bs2ad.day}`)
+
+ const prefixDays = shortNepaliDaysName.indexOf(db2bs.ne.strShortDayOfWeek)
 
   const arrayOfDate = [];
 
-  // create prefix date
-  for (let i = 0; i < firstDateOfMonth.day(); i++) {
-    const date = firstDateOfMonth.day(i);
-
+  for (let i = 0; i <prefixDays ; i++) {
     arrayOfDate.push({
       currentMonth: false,
-      date,
+      date:'',
     });
   }
 
-  // generate current date
-  for (let i = firstDateOfMonth.date(); i <= lastDateOfMonth.date(); i++) {
+  for (let i = 1 ; i <=  db2bs.en.totalDaysInMonth; i++) {
     arrayOfDate.push({
       currentMonth: true,
-      date: firstDateOfMonth.date(i),
-      today: firstDateOfMonth.date(i).toDate().toDateString() === dayjs().toDate().toDateString(),
+      date: i,
+      today: false,
     });
   }
 
-  const remaining = 42 - arrayOfDate.length;
-
-  for (let i = lastDateOfMonth.date() + 1; i <= lastDateOfMonth.date() + remaining; i++) {
-    arrayOfDate.push({
-      currentMonth: false,
-      date: lastDateOfMonth.date(i),
-    });
-  }
   return arrayOfDate;
 };
 
-export const months = [
+
+export const enMonths = [
   'January',
   'February',
   'March',
@@ -50,3 +42,55 @@ export const months = [
   'November',
   'December',
 ];
+
+
+export const months = {
+  monthsName: [
+    "बैशाख",
+    "जेष्ठ",
+    "आषाढ",
+    "श्रावण",
+    "भाद्र",
+    "आश्विन",
+    "कार्तिक",
+    "मंसिर",
+    "पौष",
+    "माघ",
+    "फाल्गुन",
+    "चैत्र",
+  ],
+  monthsShortName: [
+    "बै",
+    "जे",
+    "आषा",
+    "श्रा",
+    "भा",
+    "आश",
+    "का",
+    "मं",
+    "पौ",
+    "मा",
+    "फा",
+    "चै",
+  ],
+}
+
+export const npNums ={
+  0: "०",
+  1: "१",
+  2: "२",
+  3: "३",
+  4: "४",
+  5: "५",
+  6: "६",
+  7: "७",
+  8: "८",
+  9: "९",
+}
+
+export const nepaliDaysName = ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार']
+export const shortNepaliDaysName = ['आइत', 'सोम', 'मंगल', 'बुध', 'बिहि', 'शुक्र', 'शनि']
+
+export const enToNpNum = (num:string)=>{
+  return num.split('').map(num=> npNums[num]).join('');
+}
