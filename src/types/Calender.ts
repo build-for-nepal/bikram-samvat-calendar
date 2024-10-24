@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
 export interface Theme {
   today?: string;
@@ -17,8 +17,7 @@ export interface CalendarProps {
   maxDate?: Date;
 }
 
-
-export interface selectDateType{
-  enDate: dayjs.Dayjs,
-  npDate: string
+export interface selectDateType {
+  enDate: dayjs.Dayjs;
+  npDate: string;
 }

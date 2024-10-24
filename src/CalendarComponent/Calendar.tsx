@@ -47,18 +47,18 @@ export default function Calendar({
 
   const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const month = event.target.value;
-    setToday(0)
+    setToday(0);
     setSelectedMonth(month);
   };
 
   const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const year = parseInt(event.target.value);
-    setToday(0)
+    setToday(0);
     setSelectedYear(year);
   };
 
   const handleNextYear = () => {
-    setToday(0)
+    setToday(0);
     setSelectedYear((prev) => {
       const isMaxYearGreater = prev + 1 <= MAX_NP_YEAR;
       return isMaxYearGreater ? prev + 1 : prev;
@@ -66,7 +66,7 @@ export default function Calendar({
   };
 
   const handlePrevYear = () => {
-    setToday(0)
+    setToday(0);
     setSelectedYear((prev) => {
       const isMinYearGreater = prev - 1 >= MIN_NP_YEAR;
       return isMinYearGreater ? prev - 1 : prev;

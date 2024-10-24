@@ -36,7 +36,6 @@ export const generateDate = (month: number, year: number, iToday: number = 1) =>
   return arrayOfDate;
 };
 
-
 export const months = {
   monthsName: [
     'बैशाख',
@@ -92,7 +91,6 @@ export const convertToDateObj = (year: string, month: string, date: number) => {
       .year(bs2ad.year)
       .month(bs2ad.month - 1)
       .date(bs2ad.day),
-      npDate: `${year}/${month}/${date}`,
-
+    npDate: `${year}/${month}/${date}`,
   };
 };
