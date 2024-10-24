@@ -1,2 +1,6 @@
-npm install --save-dev --save-exact prettier
-
+dist/
+build/
+node_modules/
+.eslintrc
+.babelrc
+test/
