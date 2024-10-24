@@ -4,7 +4,7 @@ import { enMonths, enToNpNum, generateDate, months, nepaliDaysName } from '../ut
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import cn from '../util/cn';
 import { CalendarProps } from '../types/Calender';
-var adbs = require("ad-bs-converter");
+var adbs = require('ad-bs-converter');
 
 export default function Calendar({
   wrapperClass = '',
@@ -21,7 +21,9 @@ export default function Calendar({
   maxDate,
 }: CalendarProps) {
   const currentDate = dayjs();
-  const currentNpDate =  adbs.ad2bs(`${currentDate.year()}/${currentDate.month()}/${currentDate.date()}`)
+  const currentNpDate = adbs.ad2bs(
+    `${currentDate.year()}/${currentDate.month()}/${currentDate.date()}`
+  );
   const [today, setToday] = useState(currentNpDate.en.day);
   const [selectDate, setSelectDate] = useState(currentDate);
   const [selectedMonth, setSelectedMonth] = useState(currentNpDate.en.month);
@@ -34,15 +36,14 @@ export default function Calendar({
     }
   }, [selectDate, onChange]);
 
-
-  const isDateSelectable = (date: dayjs.Dayjs,currentMonth:boolean = false) => {
+  const isDateSelectable = (date: dayjs.Dayjs, currentMonth: boolean = false) => {
     const isAfterMin = minDate ? date.isAfter(minDate) || date.isSame(minDate) : currentMonth;
     const isBeforeMax = maxDate ? date.isBefore(maxDate) || date.isSame(maxDate) : currentMonth;
     return isAfterMin && isBeforeMax;
   };
 
   const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const month = (event.target.value)
+    const month = event.target.value;
     setSelectedMonth(month);
   };
 
@@ -54,13 +55,17 @@ export default function Calendar({
     <div className={cn('w-[550px] border border-collapse shadow-md', wrapperClass)}>
       <div className="flex justify-between p-2 items-center mb-4">
         <div className="flex items-center">
-          <select value={selectedYear} onChange={handleYearChange} className="p-2 border rounded focus-visible::outline-none">
+          <select
+            value={selectedYear}
+            onChange={handleYearChange}
+            className="p-2 border rounded focus-visible::outline-none"
+          >
             {Array.from({ length: 89 }, (_, i) => {
               return {
-                npYear: 2000+i
-              }
-            }).map(({npYear}) => (
-              <option key={npYear}  value={npYear}>
+                npYear: 2000 + i,
+              };
+            }).map(({ npYear }) => (
+              <option key={npYear} value={npYear}>
                 {enToNpNum(npYear.toString())}
               </option>
             ))}
@@ -97,7 +102,7 @@ export default function Calendar({
               setSelectedYear(currentDate.year());
             }}
           >
-           आज
+            आज
           </h1>
           <GrFormNext
             className="w-5 h-5 cursor-pointer hover:scale-105 transition-all"
@@ -113,43 +118,49 @@ export default function Calendar({
       </div>
       <div className="grid  h-14 grid-cols-7 bg-[#ffffff] shadow-sm">
         {nepaliDaysName.map((day, index) => (
-          <h1 key={index} className={cn('h-15 w-15 border-t grid place-content-center bg-', theme.dayHeader)}>
+          <h1
+            key={index}
+            className={cn('h-15 w-15 border-t grid place-content-center bg-', theme.dayHeader)}
+          >
             {day}
           </h1>
         ))}
       </div>
 
       <div className="grid grid-cols-7 border-collapse">
-        {generateDate(selectedMonth, selectedYear,today).map(({ date, currentMonth, today }, index) => (
-          <div
-            key={index}
-            onClick={() => {
-              if (isDateSelectable(date,currentMonth)) {
-                setSelectDate(date);
-              }
-            }}
-            className={cn("p-2 cursor-pointer  text-center h-14 border-b border-r   grid place-content-center text-sm ",{
-              [theme.selected]: false
-                    // selectDate.toDate().toDateString() === date.toDate().toDateString(),
+        {generateDate(selectedMonth, selectedYear, today).map(
+          ({ date, currentMonth, today }, index) => (
+            <div
+              key={index}
+              onClick={() => {
+                if (isDateSelectable(date, currentMonth)) {
+                  setSelectDate(date);
+                }
+              }}
+              className={cn(
+                'p-2 cursor-pointer  text-center h-14 border-b border-r   grid place-content-center text-sm ',
+                {
+                  [theme.selected]: false,
+                  // selectDate.toDate().toDateString() === date.toDate().toDateString(),
                   // 'opacity-50 cursor-not-allowed ': !isDateSelectable(date,currentMonth),
                   // [theme.hover]: isDateSelectable(date,currentMonth)
-                
-            })}
-          >
-            <h1
-              className={cn(
-                'h-15 w-15 rounded-full grid place-content-center transition-all  select-none',
-                {
-                  [theme.today]: today,
-                  [theme.currentMonth]: currentMonth,
-
                 }
               )}
             >
-              {enToNpNum(date.toString())}
-            </h1>
-          </div>
-        ))}
+              <h1
+                className={cn(
+                  'h-15 w-15 rounded-full grid place-content-center transition-all  select-none',
+                  {
+                    [theme.today]: today,
+                    [theme.currentMonth]: currentMonth,
+                  }
+                )}
+              >
+                {enToNpNum(date.toString())}
+              </h1>
+            </div>
+          )
+        )}
       </div>
     </div>
   );
