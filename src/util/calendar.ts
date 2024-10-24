@@ -1,46 +1,41 @@
+import dayjs from 'dayjs';
+
 var adbs = require('ad-bs-converter');
 
 export const generateDate = (month: number, year: number, iToday: number = 1) => {
   const bs2ad = adbs.bs2ad(`${year}/${month + 1}/01`);
 
-  const db2bs = adbs.ad2bs(`${bs2ad.year}/${bs2ad.month}/${bs2ad.day}`);
-
-  const prefixDays = shortNepaliDaysName.indexOf(db2bs.ne.strShortDayOfWeek);
+  const ad2bs = adbs.ad2bs(`${bs2ad.year}/${bs2ad.month}/${bs2ad.day}`);
+  const lastMonthDates = adbs.ad2bs(`${bs2ad.year}/${bs2ad.month - 1}/${bs2ad.day}`).en
+    .totalDaysInMonth;
 
   const arrayOfDate = [];
-
-  for (let i = 0; i < prefixDays; i++) {
+  for (let i = ad2bs.en.dayOfWeek; i > 0; i--) {
     arrayOfDate.push({
       currentMonth: false,
-      date: '',
+      date: lastMonthDates - (i - 1),
     });
   }
 
-  for (let i = 1; i <= db2bs.en.totalDaysInMonth; i++) {
+  for (let i = 1; i < ad2bs.en.totalDaysInMonth + 1; i++) {
     arrayOfDate.push({
       currentMonth: true,
       date: i,
-      today: false,
+      today: i === iToday,
+    });
+  }
+
+  const remaining = 42 - arrayOfDate.length;
+  for (let i = 1; i <= remaining; i++) {
+    arrayOfDate.push({
+      currentMonth: false,
+      date: i,
     });
   }
 
   return arrayOfDate;
 };
 
-export const enMonths = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
 
 export const months = {
   monthsName: [
@@ -82,11 +77,22 @@ export const nepaliDaysName = [
   'शुक्रबार',
   'शनिबार',
 ];
-export const shortNepaliDaysName = ['आइत', 'सोम', 'मंगल', 'बुध', 'बिहि', 'शुक्र', 'शनि'];
 
 export const enToNpNum = (num: string) => {
   return num
     .split('')
     .map((num) => npNums[num])
     .join('');
+};
+
+export const convertToDateObj = (year: string, month: string, date: number) => {
+  const bs2ad = adbs.bs2ad(`${year}/${month + 1}/${date}`);
+  return {
+    enDate: dayjs()
+      .year(bs2ad.year)
+      .month(bs2ad.month - 1)
+      .date(bs2ad.day),
+      npDate: `${year}/${month}/${date}`,
+
+  };
 };

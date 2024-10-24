@@ -5,9 +5,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontSize:{
+        'md':"15px"
+      },
       colors:{
         'muted':'#f0efeb',
-        'primary':"#f7ede2"
+        'primary':"#90be6d"
       }
     },
   },
