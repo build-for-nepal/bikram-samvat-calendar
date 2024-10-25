@@ -1,11 +1,6 @@
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
-import {
-  enToNpNum,
-  generateDate,
-  months,
-  nepaliDaysName,
-} from '../util/calendar';
+import { enToNpNum, generateDate, months, nepaliDaysName } from '../util/calendar';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import cn from '../util/cn';
 import { CalendarProps } from '../types/Calender';
@@ -26,7 +21,7 @@ export default function Calendar({
   onChange,
 }: CalendarProps) {
   const currentDate = new NepaliDate();
-  const [today, setToday] = useState<NepaliDate |null>(currentDate);
+  const [today, setToday] = useState<NepaliDate | null>(currentDate);
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
   const [selectedYear, setSelectedYear] = useState(currentDate.getYear());
 
@@ -67,9 +62,9 @@ export default function Calendar({
     setToday(currentDate);
   };
 
-  useEffect(()=>{
-    onChange(currentDate)
-  },[])
+  useEffect(() => {
+    onChange(currentDate);
+  }, []);
 
   return (
     <div className={cn('w-[550px] border border-collapse shadow-md', wrapperClass)}>
@@ -132,36 +127,37 @@ export default function Calendar({
       </div>
 
       <div className="grid grid-cols-7 border-collapse">
-        {generateDate(selectedMonth, selectedYear).map(
-          ({ date, currentMonth }, index) => {
-          return    <div
-            key={index}
-            onClick={() => handleSelecteDate(date)}
-            className={cn(
-              'p-2 cursor-pointer  transition-all text-center h-14 border-b border-r   grid place-content-center text-sm ',
-              {
-                [theme.selected]: today?.toJsDate().toDateString() == date.toJsDate().toDateString(),
-                // ' cursor-not-allowed ': !currentMonth,
-                [theme.hover]: currentMonth && !today,
-              }
-            )}
-          >
-            <h1
+        {generateDate(selectedMonth, selectedYear).map(({ date, currentMonth }, index) => {
+          return (
+            <div
+              key={index}
+              onClick={() => handleSelecteDate(date)}
               className={cn(
-                'h-15 w-15 rounded-full text-md font-semibold grid place-content-center transition-all  select-none',
+                'p-2 cursor-pointer  transition-all text-center h-14 border-b border-r   grid place-content-center text-sm ',
                 {
-                  [theme.today]: today,
-                  'opacity-50 text-grey-300': !currentMonth,
-                  [theme.currentMonth]: currentMonth,
-                  'text-red-500': (index + 1) % 7 == 0,
+                  [theme.selected]:
+                    today?.toJsDate().toDateString() == date.toJsDate().toDateString(),
+                  // ' cursor-not-allowed ': !currentMonth,
+                  [theme.hover]: currentMonth && !today,
                 }
               )}
             >
-              {date.getDate()}
-            </h1>
-          </div>
-          }
-        )}
+              <h1
+                className={cn(
+                  'h-15 w-15 rounded-full text-md font-semibold grid place-content-center transition-all  select-none',
+                  {
+                    [theme.today]: today,
+                    'opacity-50 text-grey-300': !currentMonth,
+                    [theme.currentMonth]: currentMonth,
+                    'text-red-500': (index + 1) % 7 == 0,
+                  }
+                )}
+              >
+                {date.getDate()}
+              </h1>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

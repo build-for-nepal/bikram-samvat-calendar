@@ -23,4 +23,4 @@ export interface selectDateType {
   npDate: string;
 }
 
-export  interface NepaliDate extends NepaliDateType {}
+export interface NepaliDate extends NepaliDateType {}
