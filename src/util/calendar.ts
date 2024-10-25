@@ -1,35 +1,42 @@
-import dayjs from 'dayjs';
+import NepaliDate from 'nepali-date-converter';
 
 var adbs = require('ad-bs-converter');
-
-export const generateDate = (month: number, year: number, iToday: number = 1) => {
-  const bs2ad = adbs.bs2ad(`${year}/${month + 1}/01`);
-
+interface GenerateDateReturnType{
+  date:NepaliDate,
+  currentMonth:boolean,
+}
+export const generateDate = (month: number, year: number):GenerateDateReturnType[] => {
+  const bs2ad = adbs.bs2ad(`${year}/${Number(month) + 1}/01`);
   const ad2bs = adbs.ad2bs(`${bs2ad.year}/${bs2ad.month}/${bs2ad.day}`);
   const lastMonthDates = adbs.ad2bs(`${bs2ad.year}/${bs2ad.month - 1}/${bs2ad.day}`).en
     .totalDaysInMonth;
+  const arrayOfDate:GenerateDateReturnType[] = [];
 
-  const arrayOfDate = [];
+  // create prefix
   for (let i = ad2bs.en.dayOfWeek; i > 0; i--) {
+    const currentDate = new NepaliDate(year, month-1, lastMonthDates - (i - 1));
     arrayOfDate.push({
       currentMonth: false,
-      date: lastMonthDates - (i - 1),
+      date:currentDate,
     });
   }
 
   for (let i = 1; i < ad2bs.en.totalDaysInMonth + 1; i++) {
+    const currentDate = new NepaliDate(year, month,i);
     arrayOfDate.push({
       currentMonth: true,
-      date: i,
-      today: i === iToday,
+      date: currentDate,
     });
   }
 
+
   const remaining = 42 - arrayOfDate.length;
   for (let i = 1; i <= remaining; i++) {
+  const nextMonth = new NepaliDate(year, month + 1,i);
+    nextMonth.setDate(i)
     arrayOfDate.push({
       currentMonth: false,
-      date: i,
+      date:nextMonth,
     });
   }
 
@@ -82,15 +89,4 @@ export const enToNpNum = (num: string) => {
     .split('')
     .map((num) => npNums[num])
     .join('');
-};
-
-export const convertToDateObj = (year: string, month: string, date: number) => {
-  const bs2ad = adbs.bs2ad(`${year}/${month + 1}/${date}`);
-  return {
-    enDate: dayjs()
-      .year(bs2ad.year)
-      .month(bs2ad.month - 1)
-      .date(bs2ad.day),
-    npDate: `${year}/${month}/${date}`,
-  };
 };

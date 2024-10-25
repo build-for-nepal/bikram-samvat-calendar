@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import NepaliDateType from 'nepali-date-converter';
 
 export interface Theme {
   today?: string;
@@ -12,7 +13,7 @@ export interface Theme {
 export interface CalendarProps {
   wrapperClass?: string;
   theme?: Theme;
-  onChange?: (enDate: Date, npDate?: string) => void;
+  onChange?: (enDate: NepaliDateType) => void;
   minDate?: Date;
   maxDate?: Date;
 }
@@ -21,3 +22,5 @@ export interface selectDateType {
   enDate: dayjs.Dayjs;
   npDate: string;
 }
+
+export  interface NepaliDate extends NepaliDateType {}
