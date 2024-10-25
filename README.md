@@ -21,7 +21,7 @@ import { DatePicker, Calendar } from "bikram-samvat-calendar";
 ### CommonJS
 
 ```js
-const { DatePicker, Calendar } = require("ad-bs-converter");
+const { DatePicker, Calendar } = require("bikram-samvat-calenda");
 ```
 
 ## Basic Usage
