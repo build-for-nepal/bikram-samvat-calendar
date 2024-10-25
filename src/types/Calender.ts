@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import NepaliDateType from 'nepali-date-converter';
 
 export interface Theme {
@@ -8,6 +7,7 @@ export interface Theme {
   hover?: string;
   header?: string;
   dayHeader?: string;
+  dateGrid?:string
 }
 
 export interface CalendarProps {
@@ -18,9 +18,6 @@ export interface CalendarProps {
   maxDate?: Date;
 }
 
-export interface selectDateType {
-  enDate: dayjs.Dayjs;
-  npDate: string;
-}
+
 
 export interface NepaliDate extends NepaliDateType {}
