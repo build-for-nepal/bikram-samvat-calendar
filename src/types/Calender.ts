@@ -7,7 +7,7 @@ export interface Theme {
   hover?: string;
   header?: string;
   dayHeader?: string;
-  dateGrid?:string
+  dateGrid?: string;
 }
 
 export interface CalendarProps {
@@ -17,7 +17,5 @@ export interface CalendarProps {
   minDate?: Date;
   maxDate?: Date;
 }
-
-
 
 export interface NepaliDate extends NepaliDateType {}

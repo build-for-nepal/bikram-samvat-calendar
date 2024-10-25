@@ -4,11 +4,11 @@ import NepaliDate from 'nepali-date-converter';
 import cn from '../util/cn';
 import { CalendarProps } from '../types/Calender';
 interface Props {
-    inputStyle:string
-    onChange:(data:string)=>void;
-    calenderProps: Omit<CalendarProps,'onChange'>
+  inputStyle: string;
+  onChange: (data: string) => void;
+  calenderProps: Omit<CalendarProps, 'onChange'>;
 }
-const DatePicker = ({inputStyle,onChange}:Props) => {
+const DatePicker = ({ inputStyle, onChange }: Props) => {
   const [selectedDate, setSelectedDate] = useState<NepaliDate>(null);
   const [showCalendar, setShowCalendar] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -17,7 +17,7 @@ const DatePicker = ({inputStyle,onChange}:Props) => {
 
   const handleDateChange = (date: NepaliDate) => {
     setSelectedDate(date);
-    setShowCalendar(false)
+    setShowCalendar(false);
   };
 
   const toggleCalendar = () => {
@@ -38,7 +38,7 @@ const DatePicker = ({inputStyle,onChange}:Props) => {
       const spaceAbove = inputRect.top;
 
       if (spaceBelow < calendarHeight && spaceAbove > calendarHeight) {
-        calendarContainer.current.style.top = `${-(calendarHeight +10)}px`;
+        calendarContainer.current.style.top = `${-(calendarHeight + 10)}px`;
       } else {
         calendarContainer.current.style.top = `${inputRect.height + 10}px`; // Adding some margin
       }
@@ -61,8 +61,9 @@ const DatePicker = ({inputStyle,onChange}:Props) => {
         onClick={toggleCalendar}
         readOnly
         className={cn(
-          'p-2 border rounded  focus:outline-none cursor-pointer focus:ring-2 focus:ring-blue-500 transition duration-200'
-        ,inputStyle)}
+          'p-2 border rounded  focus:outline-none cursor-pointer focus:ring-2 focus:ring-blue-500 transition duration-200',
+          inputStyle
+        )}
         placeholder="Select a date"
       />
       {showCalendar && (
@@ -72,7 +73,7 @@ const DatePicker = ({inputStyle,onChange}:Props) => {
           }`}
           ref={calendarContainer}
         >
-          <Calendar onChange={handleDateChange}  />
+          <Calendar onChange={handleDateChange} />
         </div>
       )}
     </div>
