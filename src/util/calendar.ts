@@ -1,52 +1,91 @@
-import dayjs from 'dayjs';
+import NepaliDate from 'nepali-date-converter';
 
-export const generateDate = (month = dayjs().month(), year = dayjs().year()) => {
-  const firstDateOfMonth = dayjs().year(year).month(month).startOf('month');
-  const lastDateOfMonth = dayjs().year(year).month(month).endOf('month');
+var adbs = require('ad-bs-converter');
+interface GenerateDateReturnType {
+  date: NepaliDate;
+  currentMonth: boolean;
+}
+export const generateDate = (month: number, year: number): GenerateDateReturnType[] => {
+  const bs2ad = adbs.bs2ad(`${year}/${Number(month) + 1}/01`);
+  const ad2bs = adbs.ad2bs(`${bs2ad.year}/${bs2ad.month}/${bs2ad.day}`);
+  const lastMonthDates = adbs.ad2bs(`${bs2ad.year}/${bs2ad.month - 1}/${bs2ad.day}`).en
+    .totalDaysInMonth;
+  const arrayOfDate: GenerateDateReturnType[] = [];
 
-  const arrayOfDate = [];
-
-  // create prefix date
-  for (let i = 0; i < firstDateOfMonth.day(); i++) {
-    const date = firstDateOfMonth.day(i);
-
+  // create prefix
+  for (let i = ad2bs.en.dayOfWeek; i > 0; i--) {
+    const currentDate = new NepaliDate(year, month - 1, lastMonthDates - (i - 1));
     arrayOfDate.push({
       currentMonth: false,
-      date,
+      date: currentDate,
     });
   }
 
-  // generate current date
-  for (let i = firstDateOfMonth.date(); i <= lastDateOfMonth.date(); i++) {
+  for (let i = 1; i < ad2bs.en.totalDaysInMonth + 1; i++) {
+    const currentDate = new NepaliDate(year, month, i);
     arrayOfDate.push({
       currentMonth: true,
-      date: firstDateOfMonth.date(i),
-      today: firstDateOfMonth.date(i).toDate().toDateString() === dayjs().toDate().toDateString(),
+      date: currentDate,
     });
   }
 
   const remaining = 42 - arrayOfDate.length;
-
-  for (let i = lastDateOfMonth.date() + 1; i <= lastDateOfMonth.date() + remaining; i++) {
+  for (let i = 1; i <= remaining; i++) {
+    const nextMonth = new NepaliDate(year, month + 1, i);
+    nextMonth.setDate(i);
     arrayOfDate.push({
       currentMonth: false,
-      date: lastDateOfMonth.date(i),
+      date: nextMonth,
     });
   }
+
   return arrayOfDate;
 };
 
-export const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
+export const months = {
+  monthsName: [
+    'बैशाख',
+    'जेष्ठ',
+    'आषाढ',
+    'श्रावण',
+    'भाद्र',
+    'आश्विन',
+    'कार्तिक',
+    'मंसिर',
+    'पौष',
+    'माघ',
+    'फाल्गुन',
+    'चैत्र',
+  ],
+  monthsShortName: ['बै', 'जे', 'आषा', 'श्रा', 'भा', 'आश', 'का', 'मं', 'पौ', 'मा', 'फा', 'चै'],
+};
+
+export const npNums = {
+  0: '०',
+  1: '१',
+  2: '२',
+  3: '३',
+  4: '४',
+  5: '५',
+  6: '६',
+  7: '७',
+  8: '८',
+  9: '९',
+};
+
+export const nepaliDaysName = [
+  'आइतबार',
+  'सोमबार',
+  'मंगलबार',
+  'बुधबार',
+  'बिहिबार',
+  'शुक्रबार',
+  'शनिबार',
 ];
+
+export const enToNpNum = (num: string) => {
+  return num
+    .split('')
+    .map((num) => npNums[num])
+    .join('');
+};
