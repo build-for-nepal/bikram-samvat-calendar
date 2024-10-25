@@ -14,7 +14,7 @@ export interface CalendarProps {
   wrapperClass?: string;
   theme?: Theme;
   onChange?: (enDate: NepaliDateType) => void;
-  value:Date;
+  value: Date;
 }
 
 export interface NepaliDate extends NepaliDateType {}

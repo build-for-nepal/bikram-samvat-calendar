@@ -6,18 +6,23 @@ import { CalendarProps } from '../types/Calender';
 interface Props {
   inputStyle?: string;
   onChange: (data: NepaliDate) => void;
-  value: Date | undefined,
-  placeholder?:string,
-  calenderProps?: Omit<CalendarProps, 'onChange'|'value'>;
+  value: Date | undefined;
+  placeholder?: string;
+  calenderProps?: Omit<CalendarProps, 'onChange' | 'value'>;
 }
-const DatePicker = ({ inputStyle, onChange , value,calenderProps,placeholder='Select a Date'}: Props) => {
-
+const DatePicker = ({
+  inputStyle,
+  onChange,
+  value,
+  calenderProps,
+  placeholder = 'Select a Date',
+}: Props) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const calendarContainer = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const handleDateChange = (date: NepaliDate) => {
-    onChange?.(date)
+    onChange?.(date);
   };
   const toggleCalendar = () => {
     setShowCalendar((prev) => !prev);
@@ -56,7 +61,7 @@ const DatePicker = ({ inputStyle, onChange , value,calenderProps,placeholder='Se
       <input
         ref={inputRef}
         type="text"
-        value={value ? new NepaliDate(value)?.format('YYYY/MM/DD'):''}
+        value={value ? new NepaliDate(value)?.format('YYYY/MM/DD') : ''}
         onClick={toggleCalendar}
         readOnly
         className={cn(
@@ -72,15 +77,15 @@ const DatePicker = ({ inputStyle, onChange , value,calenderProps,placeholder='Se
           }`}
           ref={calendarContainer}
         >
-          <Calendar 
-           onChange={handleDateChange}
+          <Calendar
+            onChange={handleDateChange}
             theme={{
-            dateGrid:"border-none h-10 w-10",
-            ...calenderProps?.theme
-          }}
-           wrapperClass={calenderProps?.wrapperClass}
-           value={value}
-           />
+              dateGrid: 'border-none h-10 w-10',
+              ...calenderProps?.theme,
+            }}
+            wrapperClass={calenderProps?.wrapperClass}
+            value={value}
+          />
         </div>
       )}
     </div>

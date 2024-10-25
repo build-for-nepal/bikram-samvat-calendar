@@ -10,7 +10,7 @@ export default function Calendar({
   wrapperClass = '',
   theme,
   onChange,
-  value = new Date() ,
+  value = new Date(),
 }: CalendarProps) {
   const currentDate = new NepaliDate(value);
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
@@ -106,7 +106,10 @@ export default function Calendar({
         {nepaliDaysName.map((day, index) => (
           <h1
             key={index}
-            className={cn('h-15 w-15 text-sm  p-2 border-t grid place-content-center text-center ', theme.dayHeader)}
+            className={cn(
+              'h-15 w-15 text-sm  p-2 border-t grid place-content-center text-center ',
+              theme.dayHeader
+            )}
           >
             {day}
           </h1>
@@ -128,16 +131,16 @@ export default function Calendar({
                   [`text-primary ${theme.today}`]: today,
                   [`bg-primary text-black ${theme.selected}`]: selected,
                   [`hover:bg-muted  ${theme.hover}`]: !selected,
-                }
-              ,theme.dateGrid)}
+                },
+                theme.dateGrid
+              )}
             >
               <h1
                 className={cn(
                   'h-full w-full rounded-full text-md font-semibold grid place-content-center transition-all  select-none',
                   {
                     'text-red-500': (index + 1) % 7 == 0,
-                  },
-                 
+                  }
                 )}
               >
                 {date.getDate()}
