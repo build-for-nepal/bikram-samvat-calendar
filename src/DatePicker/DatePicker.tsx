@@ -4,22 +4,21 @@ import NepaliDate from 'nepali-date-converter';
 import cn from '../util/cn';
 import { CalendarProps } from '../types/Calender';
 interface Props {
-  inputStyle: string;
-  onChange: (data: string) => void;
-  calenderProps: Omit<CalendarProps, 'onChange'>;
+  inputStyle?: string;
+  onChange: (data: NepaliDate) => void;
+  value: Date | undefined,
+  placeholder?:string,
+  calenderProps?: Omit<CalendarProps, 'onChange'|'value'>;
 }
-const DatePicker = ({ inputStyle, onChange }: Props) => {
-  const [selectedDate, setSelectedDate] = useState<NepaliDate>(null);
+const DatePicker = ({ inputStyle, onChange , value,calenderProps,placeholder='Select a Date'}: Props) => {
+
   const [showCalendar, setShowCalendar] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const calendarContainer = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
   const handleDateChange = (date: NepaliDate) => {
-    setSelectedDate(date);
-    setShowCalendar(false);
+    onChange?.(date)
   };
-
   const toggleCalendar = () => {
     setShowCalendar((prev) => !prev);
   };
@@ -40,7 +39,7 @@ const DatePicker = ({ inputStyle, onChange }: Props) => {
       if (spaceBelow < calendarHeight && spaceAbove > calendarHeight) {
         calendarContainer.current.style.top = `${-(calendarHeight + 10)}px`;
       } else {
-        calendarContainer.current.style.top = `${inputRect.height + 10}px`; // Adding some margin
+        calendarContainer.current.style.top = `${inputRect.height + 5}px`; // Adding some margin
       }
     }
   };
@@ -57,14 +56,14 @@ const DatePicker = ({ inputStyle, onChange }: Props) => {
       <input
         ref={inputRef}
         type="text"
-        value={selectedDate?.format('YYYY/MM/DD')}
+        value={value ? new NepaliDate(value)?.format('YYYY/MM/DD'):''}
         onClick={toggleCalendar}
         readOnly
         className={cn(
           'p-2 border rounded  focus:outline-none cursor-pointer focus:ring-2 focus:ring-blue-500 transition duration-200',
           inputStyle
         )}
-        placeholder="Select a date"
+        placeholder={placeholder}
       />
       {showCalendar && (
         <div
@@ -73,7 +72,15 @@ const DatePicker = ({ inputStyle, onChange }: Props) => {
           }`}
           ref={calendarContainer}
         >
-          <Calendar onChange={handleDateChange} />
+          <Calendar 
+           onChange={handleDateChange}
+            theme={{
+            dateGrid:"border-none h-10 w-10",
+            ...calenderProps?.theme
+          }}
+           wrapperClass={calenderProps?.wrapperClass}
+           value={value}
+           />
         </div>
       )}
     </div>

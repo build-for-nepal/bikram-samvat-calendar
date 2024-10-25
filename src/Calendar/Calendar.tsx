@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { enToNpNum, generateDate, months, nepaliDaysName } from '../util/calendar';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import cn from '../util/cn';
@@ -8,17 +8,11 @@ const MAX_NP_YEAR = 2089;
 const MIN_NP_YEAR = 2000;
 export default function Calendar({
   wrapperClass = '',
-  theme = {
-    today: 'text-primary',
-    selected: 'bg-primary text-black',
-    hover: 'hover:bg-muted ',
-    header: 'font-semibold ',
-    dayHeader: 'text-sm text-center text-gray-500',
-    dateGrid: 'h-14',
-  },
+  theme,
   onChange,
+  value = new Date() ,
 }: CalendarProps) {
-  const currentDate = new NepaliDate();
+  const currentDate = new NepaliDate(value);
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
   const [selectedYear, setSelectedYear] = useState(currentDate.getYear());
   const [selectedDate, setSelectedDate] = useState<NepaliDate | null>(currentDate);
@@ -57,7 +51,6 @@ export default function Calendar({
     setSelectedYear(currentDate.getYear());
     setSelectedMonth(currentDate.getMonth());
   };
-
   return (
     <div
       className={cn('min-w-[400px] w-fit border border-collapse shadow-md bg-white', wrapperClass)}
@@ -113,7 +106,7 @@ export default function Calendar({
         {nepaliDaysName.map((day, index) => (
           <h1
             key={index}
-            className={cn('h-15 w-15  p-2 border-t grid place-content-center ', theme.dayHeader)}
+            className={cn('h-15 w-15 text-sm  p-2 border-t grid place-content-center text-center ', theme.dayHeader)}
           >
             {day}
           </h1>
@@ -121,7 +114,7 @@ export default function Calendar({
       </div>
 
       <div className="grid grid-cols-7  border-collapse">
-        {generateDate(selectedMonth, selectedYear).map(({ date, currentMonth }, index) => {
+        {generateDate(selectedMonth, selectedYear).map(({ date }, index) => {
           const today = currentDate.toJsDate().toDateString() == date.toJsDate().toDateString();
           const selected =
             selectedDate?.toJsDate().toDateString() == date.toJsDate().toDateString();
@@ -130,21 +123,21 @@ export default function Calendar({
               key={index}
               onClick={() => handleSelecteDate(date)}
               className={cn(
-                'cursor-pointer  transition-all text-center  border-b border-r   grid place-content-center text-sm ',
+                'cursor-pointer   h-14 w-14 transition-all text-center  border-b border-r   grid place-content-center text-sm ',
                 {
-                  [theme.today]: today,
-                  [theme.selected]: selected,
-                  [theme.hover]: !selected,
+                  [`text-primary ${theme.today}`]: today,
+                  [`bg-primary text-black ${theme.selected}`]: selected,
+                  [`hover:bg-muted  ${theme.hover}`]: !selected,
                 }
-              )}
+              ,theme.dateGrid)}
             >
               <h1
                 className={cn(
-                  'h-15 w-15 rounded-full text-md font-semibold grid place-content-center transition-all  select-none',
+                  'h-full w-full rounded-full text-md font-semibold grid place-content-center transition-all  select-none',
                   {
                     'text-red-500': (index + 1) % 7 == 0,
                   },
-                  theme.dateGrid
+                 
                 )}
               >
                 {date.getDate()}
