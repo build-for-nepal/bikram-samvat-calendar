@@ -14,7 +14,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.8",
-    "@popperjs/core": "^2.11.8",
     "@rollup/plugin-commonjs": "^28.0.1",
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-terser": "^0.4.4",
