@@ -65,7 +65,6 @@ export default function Calendar({
   useEffect(() => {
     onChange(currentDate);
   }, []);
-
   return (
     <div className={cn('w-[550px] border border-collapse shadow-md', wrapperClass)}>
       <div className="flex justify-between p-2 items-center mb-4">
@@ -73,7 +72,7 @@ export default function Calendar({
           <select
             value={selectedYear}
             onChange={handleYearChange}
-            className="p-2 border rounded focus-visible::outline-none"
+            className="p-2 border rounded focus:outline-none focus-visible::outline-none "
           >
             {Array.from({ length: 90 }, (_, i) => {
               return {
@@ -88,7 +87,7 @@ export default function Calendar({
           <select
             value={selectedMonth}
             onChange={handleMonthChange}
-            className="ml-2 p-2 border rounded focus-visible::outline-none"
+            className="ml-2 p-2 border rounded focus:outline-none focus-visible::outline-none"
           >
             {months.monthsName.map((month, index) => (
               <option key={index} value={index}>
