@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { enToNpNum, generateDate, months, nepaliDaysName } from '../util/calendar';
+import React, { useMemo, useState } from 'react';
+import { daysObj, enToNpNum, generateDate, months } from '../util/calendar';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import cn from '../util/cn';
 import { CalendarProps } from '../types/Calender';
@@ -9,10 +9,11 @@ const MIN_NP_YEAR = 2000;
 export default function Calendar({
   wrapperClass = '',
   theme,
+  lang ='np',
   onChange,
   value = new Date(),
 }: CalendarProps) {
-  const currentDate = new NepaliDate(value);
+  const currentDate = value instanceof Date ?  new NepaliDate(value) : value;
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
   const [selectedYear, setSelectedYear] = useState(currentDate.getYear());
   const [selectedDate, setSelectedDate] = useState<NepaliDate | null>(currentDate);
@@ -51,11 +52,16 @@ export default function Calendar({
     setSelectedYear(currentDate.getYear());
     setSelectedMonth(currentDate.getMonth());
   };
+
+  const isLangNepali = useMemo(()=>{
+  return   lang ==='np'
+
+  },[lang])
   return (
     <div
       className={cn('min-w-[400px] w-fit border border-collapse shadow-md bg-white', wrapperClass)}
     >
-      <div className={cn('flex justify-between p-2 items-center mb-4', theme.header)}>
+      <div className={cn('flex justify-between p-2 items-center mb-4', theme?.header)}>
         <div className="flex items-center">
           <select
             value={selectedYear}
@@ -68,7 +74,7 @@ export default function Calendar({
               };
             }).map(({ npYear }) => (
               <option key={npYear} value={npYear}>
-                {enToNpNum(npYear.toString())}
+                {isLangNepali  ? enToNpNum(npYear.toString()) : npYear}
               </option>
             ))}
           </select>
@@ -77,7 +83,7 @@ export default function Calendar({
             onChange={handleMonthChange}
             className="ml-2 p-2 border rounded focus:outline-none focus-visible::outline-none"
           >
-            {months.monthsName.map((month, index) => (
+            {months[lang].map((month, index) => (
               <option key={index} value={index}>
                 {month}
               </option>
@@ -92,7 +98,7 @@ export default function Calendar({
             onClick={handlePrevYear}
           />
           <h1 className="cursor-pointer hover:scale-105 transition-all" onClick={resetDateToToday}>
-            आज
+            { isLangNepali?'आज':"Today"}
           </h1>
           <GrFormNext
             className={cn('w-5 h-5 cursor-pointer hover:scale-105 transition-all', {
@@ -103,12 +109,12 @@ export default function Calendar({
         </div>
       </div>
       <div className={cn('grid grid-cols-7  bg-[#ffffff] shadow-sm select-none')}>
-        {nepaliDaysName.map((day, index) => (
+        {daysObj[lang].map((day, index) => (
           <h1
             key={index}
             className={cn(
-              'h-15 w-15 text-sm  p-2 border-t grid place-content-center text-center ',
-              theme.dayHeader
+              'h-15 text-sm  p-2 border-t grid place-content-center text-center ',
+              theme?.dayHeader
             )}
           >
             {day}
@@ -126,13 +132,13 @@ export default function Calendar({
               key={index}
               onClick={() => handleSelecteDate(date)}
               className={cn(
-                'cursor-pointer   h-14 w-14 transition-all text-center  border-b border-r   grid place-content-center text-sm ',
+                'cursor-pointer   h-14  transition-all text-center  border-b border-r   grid place-content-center text-sm ',
                 {
-                  [`text-primary ${theme.today}`]: today,
-                  [`bg-primary text-black ${theme.selected}`]: selected,
-                  [`hover:bg-muted  ${theme.hover}`]: !selected,
+                  [`text-primary ${theme?.today}`]: today,
+                  [`bg-primary text-black ${theme?.selected}`]: selected,
+                  [`hover:bg-muted  ${theme?.hover}`]: !selected,
                 },
-                theme.dateGrid
+                theme?.dateGrid
               )}
             >
               <h1
@@ -143,7 +149,7 @@ export default function Calendar({
                   }
                 )}
               >
-                {date.getDate()}
+                {isLangNepali ? enToNpNum(date.getDate().toString()): date.getDate()}
               </h1>
             </div>
           );

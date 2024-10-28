@@ -2,19 +2,24 @@ import React, { useEffect, useRef, useState } from 'react';
 import Calendar from '../Calendar/Calendar'; // Import your Calendar component
 import NepaliDate from 'nepali-date-converter';
 import cn from '../util/cn';
-import { CalendarProps } from '../types/Calender';
+import { CalendarProps, langType } from '../types/Calender';
+import { parseDate } from '../util/calendar';
 interface Props {
   inputStyle?: string;
   onChange: (data: NepaliDate) => void;
-  value: Date | undefined;
+  value: Date | NepaliDate | undefined;
   placeholder?: string;
+  wrapperClass?:string;
+  lang?:langType
   calenderProps?: Omit<CalendarProps, 'onChange' | 'value'>;
 }
 const DatePicker = ({
   inputStyle,
   onChange,
   value,
+  wrapperClass,
   calenderProps,
+  lang ='np',
   placeholder = 'Select a Date',
 }: Props) => {
   const [showCalendar, setShowCalendar] = useState(false);
@@ -56,16 +61,19 @@ const DatePicker = ({
       window.addEventListener('scroll', positionCalendar);
     };
   }, [showCalendar]);
+
+ 
+
   return (
-    <div className="relative" ref={containerRef}>
+    <div style={{position:"relative"}} className={cn("relative" ,wrapperClass)} ref={containerRef}>
       <input
         ref={inputRef}
         type="text"
-        value={value ? new NepaliDate(value)?.format('YYYY/MM/DD') : ''}
+        value={parseDate(value)?.format('YYYY/MM/DD',lang)}
         onClick={toggleCalendar}
         readOnly
         className={cn(
-          'p-2 border rounded  focus:outline-none cursor-pointer focus:ring-2 focus:ring-blue-500 transition duration-200',
+          'p-2 border rounded  w-full h-full focus:outline-none cursor-pointer focus:ring-2 focus:ring-blue-500 transition duration-200',
           inputStyle
         )}
         placeholder={placeholder}
@@ -79,6 +87,7 @@ const DatePicker = ({
         >
           <Calendar
             onChange={handleDateChange}
+            lang={lang}
             theme={{
               dateGrid: 'border-none h-10 w-10',
               ...calenderProps?.theme,
