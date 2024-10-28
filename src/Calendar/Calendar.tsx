@@ -51,7 +51,7 @@ export default function Calendar({
   const resetDateToToday = () => {
     setSelectedYear(currentDate.getYear());
     setSelectedMonth(currentDate.getMonth());
-    setSelectedDate(new NepaliDate())
+    setSelectedDate(new NepaliDate());
   };
 
   const isLangNepali = useMemo(() => {
@@ -59,7 +59,10 @@ export default function Calendar({
   }, [lang]);
   return (
     <div
-      className={cn('min-w-[400px] max-w-[500px] w-fit border border-collapse shadow-md bg-white', wrapperClass)}
+      className={cn(
+        'min-w-[400px] max-w-[500px] w-fit border border-collapse shadow-md bg-white',
+        wrapperClass
+      )}
     >
       <div className={cn('flex justify-between p-2 items-center mb-4', theme?.header)}>
         <div className="flex items-center">
@@ -114,7 +117,7 @@ export default function Calendar({
             key={index}
             className={cn(
               'h-15  p-2 border-t grid place-content-center text-center ',
-              theme?.dayHeader,
+              theme?.dayHeader
             )}
           >
             {day}
@@ -138,7 +141,7 @@ export default function Calendar({
                   [`bg-primary text-black ${theme?.selected}`]: selected,
                   [`hover:bg-muted  ${theme?.hover}`]: !selected,
                 },
-                theme?.dateGrid,
+                theme?.dateGrid
               )}
             >
               <h1
