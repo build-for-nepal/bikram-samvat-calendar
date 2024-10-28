@@ -65,7 +65,7 @@ export const months = {
     'Bhadra',
     'Ashwin',
     'Kartik',
-    'Mansir',
+    'Mangsir',
     'Poush',
     'Magh',
     'Falgun',
