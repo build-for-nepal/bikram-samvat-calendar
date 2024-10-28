@@ -120,7 +120,7 @@ We would like to thank the following  packages that have contributed to this pro
 
 - **[nepali-date-convert](https://www.npmjs.com/package/nepali-date-converter)**: Converting date into NepaliDate like  Javascript Object  (visit package for more NepaliDate object methods)
 - **[ad-bs-converter](https://github.com/techgaun/ad-bs-converter/blob/master/src/converter.js)**: For calculating days in month.
-- **[Author Name or Team](link-to-author-profile)**: Acknowledgment for their support or guidance.
+
 
 Your contributions make our work easier and enhance the overall quality of our project.
 
