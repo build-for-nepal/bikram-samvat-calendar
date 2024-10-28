@@ -88,7 +88,7 @@ export const npNums = {
 };
 
 export const daysObj = {
-  en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  en: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
   np: ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'],
 };
 export const enToNpNum = (num: string) => {

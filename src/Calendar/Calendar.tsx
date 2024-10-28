@@ -51,6 +51,7 @@ export default function Calendar({
   const resetDateToToday = () => {
     setSelectedYear(currentDate.getYear());
     setSelectedMonth(currentDate.getMonth());
+    setSelectedDate(new NepaliDate())
   };
 
   const isLangNepali = useMemo(() => {
@@ -58,7 +59,7 @@ export default function Calendar({
   }, [lang]);
   return (
     <div
-      className={cn('min-w-[400px] w-fit border border-collapse shadow-md bg-white', wrapperClass)}
+      className={cn('min-w-[400px] max-w-[500px] w-fit border border-collapse shadow-md bg-white', wrapperClass)}
     >
       <div className={cn('flex justify-between p-2 items-center mb-4', theme?.header)}>
         <div className="flex items-center">
@@ -107,13 +108,13 @@ export default function Calendar({
           />
         </div>
       </div>
-      <div className={cn('grid grid-cols-7  bg-[#ffffff] shadow-sm select-none')}>
+      <div className={cn('grid grid-cols-7 text-sm  bg-[#ffffff] shadow-sm select-none')}>
         {daysObj[lang].map((day, index) => (
           <h1
             key={index}
             className={cn(
-              'h-15 text-sm  p-2 border-t grid place-content-center text-center ',
-              theme?.dayHeader
+              'h-15  p-2 border-t grid place-content-center text-center ',
+              theme?.dayHeader,
             )}
           >
             {day}
@@ -123,7 +124,7 @@ export default function Calendar({
 
       <div className="grid grid-cols-7  border-collapse">
         {generateDate(selectedMonth, selectedYear).map(({ date }, index) => {
-          const today = currentDate.toJsDate().toDateString() == date.toJsDate().toDateString();
+          const today = selectedDate.toJsDate().toDateString() == date.toJsDate().toDateString();
           const selected =
             selectedDate?.toJsDate().toDateString() == date.toJsDate().toDateString();
           return (
@@ -131,13 +132,13 @@ export default function Calendar({
               key={index}
               onClick={() => handleSelecteDate(date)}
               className={cn(
-                'cursor-pointer   h-14  transition-all text-center  border-b border-r   grid place-content-center text-sm ',
+                'cursor-pointer  h-14 text-sm  transition-all text-center  border-b border-r   grid place-content-center',
                 {
                   [`text-primary ${theme?.today}`]: today,
                   [`bg-primary text-black ${theme?.selected}`]: selected,
                   [`hover:bg-muted  ${theme?.hover}`]: !selected,
                 },
-                theme?.dateGrid
+                theme?.dateGrid,
               )}
             >
               <h1

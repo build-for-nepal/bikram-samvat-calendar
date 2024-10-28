@@ -91,7 +91,7 @@ const DatePicker = ({
             onChange={handleDateChange}
             lang={lang}
             theme={{
-              dateGrid: 'border-none h-10 w-10',
+              dateGrid: 'border-none',
               ...calenderProps?.theme,
             }}
             wrapperClass={calenderProps?.wrapperClass}

@@ -56,7 +56,9 @@ export default function CalendarComponent() {
             </select>
          </div>
             <h2>Choose a Nepali Date:</h2>
-            <Calendar lang={lang} wrapperClass='mx-auto' value={nepaliDate || new Date()} onChange={handleChangeDate} />
+            <div>
+                <Calendar lang={lang} wrapperClass='mx-auto ' value={nepaliDate || new Date()} onChange={handleChangeDate} />
+            </div>
             {renderFormats()}
         </div>
     );
