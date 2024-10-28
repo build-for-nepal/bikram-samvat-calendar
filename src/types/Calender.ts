@@ -10,7 +10,7 @@ export interface Theme {
   dateGrid?: string;
 }
 
-export type langType = 'en'|'np'
+export type langType = 'en' | 'np';
 export interface CalendarProps {
   wrapperClass?: string;
   theme?: Theme;

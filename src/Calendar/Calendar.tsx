@@ -9,11 +9,11 @@ const MIN_NP_YEAR = 2000;
 export default function Calendar({
   wrapperClass = '',
   theme,
-  lang ='np',
+  lang = 'np',
   onChange,
   value = new Date(),
 }: CalendarProps) {
-  const currentDate = value instanceof Date ?  new NepaliDate(value) : value;
+  const currentDate = value instanceof Date ? new NepaliDate(value) : value;
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
   const [selectedYear, setSelectedYear] = useState(currentDate.getYear());
   const [selectedDate, setSelectedDate] = useState<NepaliDate | null>(currentDate);
@@ -53,10 +53,9 @@ export default function Calendar({
     setSelectedMonth(currentDate.getMonth());
   };
 
-  const isLangNepali = useMemo(()=>{
-  return   lang ==='np'
-
-  },[lang])
+  const isLangNepali = useMemo(() => {
+    return lang === 'np';
+  }, [lang]);
   return (
     <div
       className={cn('min-w-[400px] w-fit border border-collapse shadow-md bg-white', wrapperClass)}
@@ -74,7 +73,7 @@ export default function Calendar({
               };
             }).map(({ npYear }) => (
               <option key={npYear} value={npYear}>
-                {isLangNepali  ? enToNpNum(npYear.toString()) : npYear}
+                {isLangNepali ? enToNpNum(npYear.toString()) : npYear}
               </option>
             ))}
           </select>
@@ -98,7 +97,7 @@ export default function Calendar({
             onClick={handlePrevYear}
           />
           <h1 className="cursor-pointer hover:scale-105 transition-all" onClick={resetDateToToday}>
-            { isLangNepali?'आज':"Today"}
+            {isLangNepali ? 'आज' : 'Today'}
           </h1>
           <GrFormNext
             className={cn('w-5 h-5 cursor-pointer hover:scale-105 transition-all', {
@@ -149,7 +148,7 @@ export default function Calendar({
                   }
                 )}
               >
-                {isLangNepali ? enToNpNum(date.getDate().toString()): date.getDate()}
+                {isLangNepali ? enToNpNum(date.getDate().toString()) : date.getDate()}
               </h1>
             </div>
           );

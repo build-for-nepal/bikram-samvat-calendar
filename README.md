@@ -23,7 +23,8 @@ npm install bikram-samvat-calendar
  ```bash 
  import React, { useState } from 'react';
 import Calendar from 'bikram-samvat-calendar';
-import { NepaliDate } from "bikram-samvat-calendar/build/types/Calender";
+import { NepaliDate } from 'bikram-samvat-calendar/types/Calender';
+
 
 
 function App() {
@@ -72,7 +73,7 @@ export default App;
    ```bash 
    import React, { useState } from "react";
 import { DatePicker } from "bikram-samvat-calendar";
-import { NepaliDate } from "bikram-samvat-calendar/build/types/Calender";
+import { NepaliDate } from 'bikram-samvat-calendar/types/Calender';
 
 function App() {
   const [date, setDate] = useState<NepaliDate>();
@@ -109,10 +110,15 @@ export default App;
 | `value`        | `Date | undefined`                 | `undefined`            | The currently selected date in JavaScript Date format.                                       |
 | `placeholder`  | `string`                            | `'Select a Date'`     | Placeholder text for the input field when no date is selected.                               |
 | `calenderProps`|       wrapperClass,theme    | default  |         props mentioned in Calendar Component
+| `wrapperClass`|       `string`   | empty  |        |  Additional CSS classes for the wrapper element. 
 
 
 
+## Comman Props
 
+| Prop         | Type     | Default       | Description                                                |
+|--------------|----------|---------------|------------------------------------------------------------|
+| `lang` | `string` | `'en|np'`     `'np'`    | For changing style nepali lang to english.           |
 
 ## Acknowledgments
 

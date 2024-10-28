@@ -9,8 +9,8 @@ interface Props {
   onChange: (data: NepaliDate) => void;
   value: Date | NepaliDate | undefined;
   placeholder?: string;
-  wrapperClass?:string;
-  lang?:langType
+  wrapperClass?: string;
+  lang?: langType;
   calenderProps?: Omit<CalendarProps, 'onChange' | 'value'>;
 }
 const DatePicker = ({
@@ -19,7 +19,7 @@ const DatePicker = ({
   value,
   wrapperClass,
   calenderProps,
-  lang ='np',
+  lang = 'np',
   placeholder = 'Select a Date',
 }: Props) => {
   const [showCalendar, setShowCalendar] = useState(false);
@@ -62,14 +62,16 @@ const DatePicker = ({
     };
   }, [showCalendar]);
 
- 
-
   return (
-    <div style={{position:"relative"}} className={cn("relative" ,wrapperClass)} ref={containerRef}>
+    <div
+      style={{ position: 'relative' }}
+      className={cn('relative', wrapperClass)}
+      ref={containerRef}
+    >
       <input
         ref={inputRef}
         type="text"
-        value={parseDate(value)?.format('YYYY/MM/DD',lang)}
+        value={parseDate(value)?.format('YYYY/MM/DD', lang)}
         onClick={toggleCalendar}
         readOnly
         className={cn(
