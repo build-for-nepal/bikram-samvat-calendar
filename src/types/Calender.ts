@@ -10,11 +10,13 @@ export interface Theme {
   dateGrid?: string;
 }
 
+export type langType = 'en' | 'np';
 export interface CalendarProps {
   wrapperClass?: string;
   theme?: Theme;
+  lang?: langType;
   onChange?: (enDate: NepaliDateType) => void;
-  value: Date;
+  value: Date | NepaliDate | undefined;
 }
 
 export interface NepaliDate extends NepaliDateType {}

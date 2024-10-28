@@ -43,7 +43,7 @@ export const generateDate = (month: number, year: number): GenerateDateReturnTyp
 };
 
 export const months = {
-  monthsName: [
+  np: [
     'बैशाख',
     'जेष्ठ',
     'आषाढ',
@@ -56,6 +56,20 @@ export const months = {
     'माघ',
     'फाल्गुन',
     'चैत्र',
+  ],
+  en: [
+    'Baishakh',
+    'Jestha',
+    'Ashadh',
+    'Shrawan',
+    'Bhadra',
+    'Ashwin',
+    'Kartik',
+    'Mangsir',
+    'Poush',
+    'Magh',
+    'Falgun',
+    'Chaitra',
   ],
   monthsShortName: ['बै', 'जे', 'आषा', 'श्रा', 'भा', 'आश', 'का', 'मं', 'पौ', 'मा', 'फा', 'चै'],
 };
@@ -73,19 +87,25 @@ export const npNums = {
   9: '९',
 };
 
-export const nepaliDaysName = [
-  'आइतबार',
-  'सोमबार',
-  'मंगलबार',
-  'बुधबार',
-  'बिहिबार',
-  'शुक्रबार',
-  'शनिबार',
-];
-
+export const daysObj = {
+  en: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+  np: ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'],
+};
 export const enToNpNum = (num: string) => {
   return num
     .split('')
     .map((num) => npNums[num])
     .join('');
+};
+
+export const parseDate = (date: Date | NepaliDate) => {
+  if (!date) {
+    return undefined;
+  }
+  if (date instanceof Date) {
+    return new NepaliDate(date);
+  } else if (date instanceof NepaliDate) {
+    return new NepaliDate(date.toJsDate());
+  }
+  return undefined;
 };
