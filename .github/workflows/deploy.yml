@@ -25,12 +25,12 @@ jobs:
 
       - name: Build example (if applicable)
         run: |
-          cd examples
+          cd example
           npm run build  
 
-      - name: Deploy Examples
+      - name: Deploy Example
         run: |
           cd examples
-          npx gh-pages -d .  # Deploy the current directory (examples)
+          npx gh-pages -d .  # Deploy the current directory (example)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
