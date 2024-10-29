@@ -124,7 +124,7 @@ export default App;
 
 
 
-## Comman Props these props valid for both Datepicker and Calendar Component
+## Comman Props these props valid for both DatePicker and Calendar Component
 
 | Prop         | Type     | Default       | Description                                                |
 |--------------|----------|---------------|------------------------------------------------------------|
