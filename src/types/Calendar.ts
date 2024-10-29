@@ -17,6 +17,12 @@ export interface CalendarProps {
   lang?: langType;
   onChange?: (enDate: NepaliDateType) => void;
   value: Date | NepaliDate | undefined;
+  calendarRef?:React.MutableRefObject<HTMLDivElement | undefined>,
+  onCellClick?: (date: NepaliDate, cellRef: HTMLDivElement) => void;
+  onNextYear?: (newYear: number) => void;
+  onPrevYear?: (newYear: number) => void; 
+  onYearSelect?: (newYear: number) => void; 
+  onMonthSelect?: (name: string, monthIndex:number) => void; 
 }
 
 export interface NepaliDate extends NepaliDateType {}
