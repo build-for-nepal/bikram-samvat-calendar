@@ -23,7 +23,7 @@ npm install bikram-samvat-calendar
  ```bash 
  import React, { useState } from 'react';
 import Calendar from 'bikram-samvat-calendar';
-import { NepaliDate } from 'bikram-samvat-calendar/types/Calender';
+import { NepaliDate } from 'bikram-samvat-calendar/types/Calendar';
 
 
 

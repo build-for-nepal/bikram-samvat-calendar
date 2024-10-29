@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Calendar from '../Calendar/Calendar'; // Import your Calendar component
 import NepaliDate from 'nepali-date-converter';
 import cn from '../util/cn';
-import { CalendarProps, langType } from '../types/Calender';
+import { CalendarProps, langType } from '../types/Calendar';
 import { parseDate } from '../util/calendar';
 interface Props {
   inputStyle?: string;

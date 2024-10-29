@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { daysObj, enToNpNum, generateDate, months } from '../util/calendar';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import cn from '../util/cn';
-import { CalendarProps } from '../types/Calender';
+import { CalendarProps } from '../types/Calendar';
 import NepaliDate from 'nepali-date-converter';
 const MAX_NP_YEAR = 2089;
 const MIN_NP_YEAR = 2000;
