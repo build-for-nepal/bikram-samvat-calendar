@@ -40,6 +40,18 @@ function App() {
       <Calendar
         onChange={handleDateChange}
         value={selectedDate}
+         onPrevYear={(year) => {
+            console.log(year, 'year');
+          }}
+          onNextYear={(year) => {
+            console.log(year, 'year');
+          }}
+          onMonthSelect={(name, index) => {
+            console.log({ name, index });
+          }}
+          onCellClick={(date, ref) => {
+              ref.style.color = 'red';
+          }}
         theme={{ 
           header: 'bg-gray-200', 
           dayHeader: 'text-gray-600', 
@@ -65,8 +77,6 @@ export default App;
 | `theme`      | `object` | `{}`         | Theme customization for different parts of the calendar.   |
 | `onChange`   | `function` | `(date:NepaliDate) => {}`   | Callback function triggered when a date is selected. it will give NepaliDate Object      |
 | `value`      | `Date`   | `new Date()`  | The currently selected date (in JavaScript Date format).   |
-
-
 
  # Nepali Date Picker Component
    
@@ -114,11 +124,18 @@ export default App;
 
 
 
-## Comman Props
+## Comman Props these props valid for both DatePicker and Calendar Component
 
 | Prop         | Type     | Default       | Description                                                |
 |--------------|----------|---------------|------------------------------------------------------------|
 | `lang` | `en|np`   |     `np`    | For changing style nepali lang to english.           |
+| `calendarRef` | `React.React.MutableRefObject<HTMLDivElement>`   |     `undefined`    | Use this calendarRef for custom logic      |
+| `onPrevYear` |  `(year:number)=>void` | `''` | The currently toggle  year      |
+| `onNextYear` |  `(year:number)=>void` | `''` | The currently toggle year  |
+| `onMonthSelect` |  `(name:string,monthIndex:number)=>void` | `''` | The currently selected month with name and index |
+| `onCellClick` |  `(date:NepaliDate,cellRef:React.React.MutableRefObject<HTMLDivElement>)=>void` | `''` | The  clicked month cell date  and Cell ref for custom logic|
+
+
 
 ## Acknowledgments
 

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { daysObj, enToNpNum, generateDate, months } from '../util/calendar';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import cn from '../util/cn';
@@ -12,41 +12,63 @@ export default function Calendar({
   lang = 'np',
   onChange,
   value = new Date(),
+  onCellClick,
+  onNextYear,
+  onPrevYear,
+  onYearSelect,
+  calendarRef,
+  onMonthSelect,
 }: CalendarProps) {
   const currentDate = value instanceof Date ? new NepaliDate(value) : value;
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
   const [selectedYear, setSelectedYear] = useState(currentDate.getYear());
   const [selectedDate, setSelectedDate] = useState<NepaliDate | null>(currentDate);
+  const cellRefs = useRef<(HTMLDivElement | null)[]>([]);
   const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const month = Number(event.target.value);
     setSelectedDate(null);
     setSelectedMonth(month);
+    onMonthSelect?.(months[lang][month], month);
   };
 
   const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const year = parseInt(event.target.value);
     setSelectedDate(null);
     setSelectedYear(year);
+    onYearSelect?.(year);
   };
 
   const handleNextYear = () => {
     setSelectedDate(null);
     setSelectedYear((prev) => {
-      const isMaxYearGreater = prev + 1 <= MAX_NP_YEAR;
-      return isMaxYearGreater ? prev + 1 : prev;
+      let year = prev + 1;
+      const isMaxYearGreater = year <= MAX_NP_YEAR;
+      if (isMaxYearGreater) {
+        onNextYear?.(year);
+        return year;
+      }
+      onNextYear?.(prev);
+      return prev;
     });
   };
 
   const handlePrevYear = () => {
     setSelectedDate(null);
     setSelectedYear((prev) => {
+      let year = prev - 1;
       const isMinYearGreater = prev - 1 >= MIN_NP_YEAR;
-      return isMinYearGreater ? prev - 1 : prev;
+      if (isMinYearGreater) {
+        onPrevYear?.(year);
+        return year;
+      }
+      onPrevYear?.(prev);
+      return prev;
     });
   };
-  const handleSelecteDate = (date: NepaliDate) => {
+  const handleSelecteDate = (date: NepaliDate, ref: HTMLDivElement) => {
     onChange(date);
     setSelectedDate(date);
+    onCellClick?.(date, ref); // Pass the cell reference
   };
   const resetDateToToday = () => {
     setSelectedYear(currentDate.getYear());
@@ -59,6 +81,7 @@ export default function Calendar({
   }, [lang]);
   return (
     <div
+      ref={calendarRef}
       className={cn(
         'min-w-[400px] max-w-[500px] w-fit border border-collapse shadow-md bg-white',
         wrapperClass
@@ -127,13 +150,14 @@ export default function Calendar({
 
       <div className="grid grid-cols-7  border-collapse">
         {generateDate(selectedMonth, selectedYear).map(({ date }, index) => {
-          const today = selectedDate.toJsDate().toDateString() == date.toJsDate().toDateString();
+          const today = selectedDate?.toJsDate()?.toDateString() == date?.toJsDate().toDateString();
           const selected =
             selectedDate?.toJsDate().toDateString() == date.toJsDate().toDateString();
           return (
             <div
+              ref={(el) => (cellRefs.current[index] = el)}
               key={index}
-              onClick={() => handleSelecteDate(date)}
+              onClick={() => handleSelecteDate(date, cellRefs.current[index])}
               className={cn(
                 'cursor-pointer  h-14 text-sm  transition-all text-center  border-b border-r   grid place-content-center',
                 {
