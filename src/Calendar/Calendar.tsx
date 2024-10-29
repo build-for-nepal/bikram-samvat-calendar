@@ -28,49 +28,47 @@ export default function Calendar({
     const month = Number(event.target.value);
     setSelectedDate(null);
     setSelectedMonth(month);
-    onMonthSelect?.(months[lang][month], month)
+    onMonthSelect?.(months[lang][month], month);
   };
 
   const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const year = parseInt(event.target.value);
     setSelectedDate(null);
     setSelectedYear(year);
-    onYearSelect?.(year)
+    onYearSelect?.(year);
   };
 
   const handleNextYear = () => {
     setSelectedDate(null);
     setSelectedYear((prev) => {
-      let year =prev + 1;
+      let year = prev + 1;
       const isMaxYearGreater = year <= MAX_NP_YEAR;
-      if(isMaxYearGreater){
-        onNextYear?.(year)
-        return year
+      if (isMaxYearGreater) {
+        onNextYear?.(year);
+        return year;
       }
-      onNextYear?.(prev)
+      onNextYear?.(prev);
       return prev;
     });
-
   };
 
   const handlePrevYear = () => {
     setSelectedDate(null);
     setSelectedYear((prev) => {
-      let year =prev - 1;
+      let year = prev - 1;
       const isMinYearGreater = prev - 1 >= MIN_NP_YEAR;
-      if(isMinYearGreater){
-        onPrevYear?.(year)
+      if (isMinYearGreater) {
+        onPrevYear?.(year);
         return year;
       }
-      onPrevYear?.(prev)
+      onPrevYear?.(prev);
       return prev;
     });
   };
-  const handleSelecteDate = (date: NepaliDate,ref:HTMLDivElement) => {
+  const handleSelecteDate = (date: NepaliDate, ref: HTMLDivElement) => {
     onChange(date);
     setSelectedDate(date);
-    onCellClick?.(date,ref); // Pass the cell reference
-
+    onCellClick?.(date, ref); // Pass the cell reference
   };
   const resetDateToToday = () => {
     setSelectedYear(currentDate.getYear());
@@ -83,7 +81,7 @@ export default function Calendar({
   }, [lang]);
   return (
     <div
-    ref={calendarRef}
+      ref={calendarRef}
       className={cn(
         'min-w-[400px] max-w-[500px] w-fit border border-collapse shadow-md bg-white',
         wrapperClass
@@ -159,7 +157,7 @@ export default function Calendar({
             <div
               ref={(el) => (cellRefs.current[index] = el)}
               key={index}
-              onClick={() => handleSelecteDate(date,cellRefs.current[index])}
+              onClick={() => handleSelecteDate(date, cellRefs.current[index])}
               className={cn(
                 'cursor-pointer  h-14 text-sm  transition-all text-center  border-b border-r   grid place-content-center',
                 {

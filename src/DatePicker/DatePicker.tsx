@@ -4,7 +4,11 @@ import NepaliDate from 'nepali-date-converter';
 import cn from '../util/cn';
 import { CalendarProps, langType } from '../types/Calendar';
 import { parseDate } from '../util/calendar';
-interface Props extends Pick<CalendarProps,'onCellClick'|'onMonthSelect'|'onNextYear'|'onPrevYear'|'onYearSelect'|'calendarRef'> {
+interface Props
+  extends Pick<
+    CalendarProps,
+    'onCellClick' | 'onMonthSelect' | 'onNextYear' | 'onPrevYear' | 'onYearSelect' | 'calendarRef'
+  > {
   inputStyle?: string;
   onChange: (data: NepaliDate) => void;
   value: Date | NepaliDate | undefined;
@@ -12,7 +16,7 @@ interface Props extends Pick<CalendarProps,'onCellClick'|'onMonthSelect'|'onNext
   wrapperClass?: string;
   lang?: langType;
   calenderProps?: Omit<CalendarProps, 'onChange' | 'value'>;
-}  
+}
 const DatePicker = ({
   inputStyle,
   onChange,
@@ -26,7 +30,7 @@ const DatePicker = ({
   onNextYear,
   onPrevYear,
   onYearSelect,
-  calendarRef
+  calendarRef,
 }: Props) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
