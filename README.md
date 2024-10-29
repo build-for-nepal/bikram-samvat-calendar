@@ -118,7 +118,7 @@ export default App;
 
 | Prop         | Type     | Default       | Description                                                |
 |--------------|----------|---------------|------------------------------------------------------------|
-| `lang` | `string` | `'en|np'`     `'np'`    | For changing style nepali lang to english.           |
+| `lang` | `en|np`   |     `np`    | For changing style nepali lang to english.           |
 
 ## Acknowledgments
 
