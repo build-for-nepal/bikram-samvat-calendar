@@ -1,113 +1,112 @@
 {
-      "August 15": {
-        "name": {
-          "np": "स्वतन्त्रता दिवस",
-          "en": "Independence Day"
-        },
-        "description": {
-          "np": "राणा शासनको अन्त्य र लोकतन्त्रको स्थापनाको उत्सव।",
-          "en": "Celebrates the end of the Rana regime and the establishment of democracy."
-        }
-      },
-      "September 20": {
-        "name": {
-          "np": "संविधान दिवस",
-          "en": "Constitution Day"
-        },
-        "description": {
-          "np": "नेपालको संविधानको promulgation को स्मरण।",
-          "en": "Commemorates the promulgation of the Constitution of Nepal."
-        }
-      },
-      "February 18": {
-        "name": {
-          "np": "लोकतन्त्र दिवस",
-          "en": "Democracy Day"
-        },
-        "description": {
-          "np": "नेपालमा लोकतन्त्रको स्थापनाको स्मरण।",
-          "en": "Marks the establishment of democracy in Nepal."
-        }
-      },
-      "May 28": {
-        "name": {
-          "np": "गणतन्त्र दिवस",
-          "en": "Republic Day"
-        },
-        "description": {
-          "np": "नेपाललाई गणतन्त्रको रूपमा घोषणा गरिएको दिनको स्मरण।",
-          "en": "Commemorates the declaration of Nepal as a republic in 2008."
-        }
-      },
-      "May 1": {
-        "name": {
-          "np": "अन्तर्राष्ट्रिय श्रमिक दिवस",
-          "en": "International Labor Day"
-        },
-        "description": {
-          "np": "श्रमिकहरूको योगदानलाई सम्मान गर्दछ।",
-          "en": "Honors workers and their contributions."
-        }
-      },
-      "August 16": {
-        "name": {
-          "np": "नेपाल झण्डा दिवस",
-          "en": "Nepal Flag Day"
-        },
-        "description": {
-          "np": "नेपालको राष्ट्रिय झण्डालाई सम्मान गर्ने दिन।",
-          "en": "Celebrates the national flag of Nepal."
-        }
-      },
-      "September 21": {
-        "name": {
-          "np": "विश्व शान्ति दिवस",
-          "en": "World Peace Day"
-        },
-        "description": {
-          "np": "शान्ति र अहिंसाको प्रवर्द्धन।",
-          "en": "Promotes peace and non-violence."
-        }
-      },
-      "January 22": {
-        "name": {
-          "np": "राष्ट्रिय एकता दिवस",
-          "en": "National Unity Day"
-        },
-        "description": {
-          "np": "नेपालका विभिन्न जातीय समूहहरूको एकताको स्मरण।",
-          "en": "Commemorates the unity of various ethnic groups in Nepal."
-        }
-      },
-      "April 26": {
-        "name": {
-          "np": "राष्ट्रिय लोकतन्त्र दिवस",
-          "en": "National Democracy Day"
-        },
-        "description": {
-          "np": "नेपालमा लोकतन्त्रको पुनर्स्थापनाको स्मरण।",
-          "en": "Commemorates the restoration of democracy in Nepal."
-        }
-      },
-      "December 2": {
-        "name": {
-          "np": "कृषक दिवस",
-          "en": "National Farmer's Day"
-        },
-        "description": {
-          "np": "कृषकहरूको योगदानलाई सम्मान गर्ने दिन।",
-          "en": "Celebrates and honors the contributions of farmers."
-        }
-      },
-      "October 22": {
-        "name": {
-          "np": "साझा जयन्ती",
-          "en": "Sajha Jayanti"
-        },
-        "description": {
-          "np": "नेपाली जनताको एकता र आत्मासम्मानको स्मरण।",
-          "en": "Commemorates the unity and spirit of the Nepali people."
-        }
-      }
+  "August 15": {
+    "name": {
+      "np": "स्वतन्त्रता दिवस",
+      "en": "Independence Day"
+    },
+    "description": {
+      "np": "राणा शासनको अन्त्य र लोकतन्त्रको स्थापनाको उत्सव।",
+      "en": "Celebrates the end of the Rana regime and the establishment of democracy."
+    }
+  },
+  "September 20": {
+    "name": {
+      "np": "संविधान दिवस",
+      "en": "Constitution Day"
+    },
+    "description": {
+      "np": "नेपालको संविधानको promulgation को स्मरण।",
+      "en": "Commemorates the promulgation of the Constitution of Nepal."
+    }
+  },
+  "February 18": {
+    "name": {
+      "np": "लोकतन्त्र दिवस",
+      "en": "Democracy Day"
+    },
+    "description": {
+      "np": "नेपालमा लोकतन्त्रको स्थापनाको स्मरण।",
+      "en": "Marks the establishment of democracy in Nepal."
+    }
+  },
+  "May 28": {
+    "name": {
+      "np": "गणतन्त्र दिवस",
+      "en": "Republic Day"
+    },
+    "description": {
+      "np": "नेपाललाई गणतन्त्रको रूपमा घोषणा गरिएको दिनको स्मरण।",
+      "en": "Commemorates the declaration of Nepal as a republic in 2008."
+    }
+  },
+  "May 1": {
+    "name": {
+      "np": "अन्तर्राष्ट्रिय श्रमिक दिवस",
+      "en": "International Labor Day"
+    },
+    "description": {
+      "np": "श्रमिकहरूको योगदानलाई सम्मान गर्दछ।",
+      "en": "Honors workers and their contributions."
+    }
+  },
+  "August 16": {
+    "name": {
+      "np": "नेपाल झण्डा दिवस",
+      "en": "Nepal Flag Day"
+    },
+    "description": {
+      "np": "नेपालको राष्ट्रिय झण्डालाई सम्मान गर्ने दिन।",
+      "en": "Celebrates the national flag of Nepal."
+    }
+  },
+  "September 21": {
+    "name": {
+      "np": "विश्व शान्ति दिवस",
+      "en": "World Peace Day"
+    },
+    "description": {
+      "np": "शान्ति र अहिंसाको प्रवर्द्धन।",
+      "en": "Promotes peace and non-violence."
+    }
+  },
+  "January 22": {
+    "name": {
+      "np": "राष्ट्रिय एकता दिवस",
+      "en": "National Unity Day"
+    },
+    "description": {
+      "np": "नेपालका विभिन्न जातीय समूहहरूको एकताको स्मरण।",
+      "en": "Commemorates the unity of various ethnic groups in Nepal."
+    }
+  },
+  "April 26": {
+    "name": {
+      "np": "राष्ट्रिय लोकतन्त्र दिवस",
+      "en": "National Democracy Day"
+    },
+    "description": {
+      "np": "नेपालमा लोकतन्त्रको पुनर्स्थापनाको स्मरण।",
+      "en": "Commemorates the restoration of democracy in Nepal."
+    }
+  },
+  "December 2": {
+    "name": {
+      "np": "कृषक दिवस",
+      "en": "National Farmer's Day"
+    },
+    "description": {
+      "np": "कृषकहरूको योगदानलाई सम्मान गर्ने दिन।",
+      "en": "Celebrates and honors the contributions of farmers."
+    }
+  },
+  "October 22": {
+    "name": {
+      "np": "साझा जयन्ती",
+      "en": "Sajha Jayanti"
+    },
+    "description": {
+      "np": "नेपाली जनताको एकता र आत्मासम्मानको स्मरण।",
+      "en": "Commemorates the unity and spirit of the Nepali people."
+    }
   }
-  
+}

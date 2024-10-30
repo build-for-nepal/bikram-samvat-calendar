@@ -66,7 +66,7 @@ export default function Calendar({
       return prev;
     });
   };
-  const handleSelecteDate = (date: NepaliDate, ref: HTMLDivElement,event: DateEventType) => {
+  const handleSelecteDate = (date: NepaliDate, ref: HTMLDivElement, event: DateEventType) => {
     onChange(date);
     setSelectedDate(date);
     onCellClick?.(date, ref, event); // Pass the cell reference
@@ -167,7 +167,7 @@ export default function Calendar({
                   [`text-primary ${theme?.today}`]: today,
                   [`bg-primary text-black ${theme?.selected}`]: selected,
                   [`hover:bg-muted  ${theme?.hover}`]: !selected,
-                  ['text-red-500'] : showDateEvent && Boolean(event)
+                  ['text-red-500']: showDateEvent && Boolean(event),
                 },
                 theme?.dateGrid
               )}
@@ -182,11 +182,14 @@ export default function Calendar({
               >
                 {isLangNepali ? enToNpNum(date.getDate().toString()) : date.getDate()}
               </h1>
-             {
-              showDateEvent &&  <span className='absolute text-ellipsis max-h-[1.5rem] bottom-[.1em]  w-full overflow-hidden whitespace-pre-wrap'  style={{fontSize:"10px"}}>
-              {event?.name[lang]}
-            </span>
-             }
+              {showDateEvent && (
+                <span
+                  className="absolute text-ellipsis max-h-[1.5rem] bottom-[.1em]  w-full overflow-hidden whitespace-pre-wrap"
+                  style={{ fontSize: '10px' }}
+                >
+                  {event?.name[lang]}
+                </span>
+              )}
             </div>
           );
         })}

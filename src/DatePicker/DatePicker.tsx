@@ -7,7 +7,13 @@ import { parseDate } from '../util/calendar';
 interface Props
   extends Pick<
     CalendarProps,
-    'onCellClick' | 'onMonthSelect' | 'onNextYear' | 'onPrevYear' | 'onYearSelect' | 'calendarRef' |'showDateEvent'
+    | 'onCellClick'
+    | 'onMonthSelect'
+    | 'onNextYear'
+    | 'onPrevYear'
+    | 'onYearSelect'
+    | 'calendarRef'
+    | 'showDateEvent'
   > {
   inputStyle?: string;
   onChange: (data: NepaliDate) => void;

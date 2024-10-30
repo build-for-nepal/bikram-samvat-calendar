@@ -131,6 +131,6 @@ const monthInEnglish = [
 export const getDateEvent = (date: Date): DateEventType => {
   let currentMonth = monthInEnglish[date.getMonth()];
   let currentDate = date.getDate();
-let event = nepalHisotricalDates[`${currentMonth} ${currentDate}`] as DateEventType;
+  let event = nepalHisotricalDates[`${currentMonth} ${currentDate}`] as DateEventType;
   return event;
 };
