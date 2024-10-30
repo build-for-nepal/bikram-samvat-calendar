@@ -1,6 +1,6 @@
 import nepalHisotricalDates from '../json/nepal.historical.data.json';
 import NepaliDate from 'nepali-date-converter';
-import { DateEventType } from '../types/Calendar';
+import { CustomeDateEvent, DateEventType } from '../types/Calendar';
 
 var adbs = require('ad-bs-converter');
 interface GenerateDateReturnType {
@@ -128,9 +128,40 @@ const monthInEnglish = [
   'December',
 ];
 
-export const getDateEvent = (date: Date): DateEventType => {
+export const getDateEvent = (date: Date, userEvents: CustomeDateEvent[] = []): DateEventType => {
   let currentMonth = monthInEnglish[date.getMonth()];
   let currentDate = date.getDate();
+  let currentYear = date.getFullYear();
   let event = nepalHisotricalDates[`${currentMonth} ${currentDate}`] as DateEventType;
+
+  let userCustomEventObj = createDateEventObj(userEvents);
+    
+  if(Object.keys(userCustomEventObj).length){
+     event = userCustomEventObj[`${currentYear}_${currentMonth}_${currentDate}`] as DateEventType;
+  }
+
   return event;
 };
+
+function createDateEventObj(userEvents: CustomeDateEvent[]) {
+  let eventObject = {};
+  for (let i = 0; i < userEvents.length; i++) {
+    let event = userEvents[i];
+    let month = typeof event.month === 'number' ? months.en[event.month] : event.month;
+    let year = event.year;
+    let date = event.date;
+
+    let key = `${year}_${month}_${date}`;
+    eventObject[key] = {
+        name: {
+          np: event.eventName,
+          en: event.eventName,
+        },
+        description: {
+          np: event.description,
+          en: event.description,
+        },
+    };
+  }
+  return eventObject;
+}
