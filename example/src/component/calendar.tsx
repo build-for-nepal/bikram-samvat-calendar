@@ -15,7 +15,6 @@ export default function CalendarComponent() {
     setLang(e.target.value as 'en');
   };
 
-  const calendarRef = useRef<HTMLDivElement>()
 
   const renderFormats = () => {
     if (!nepaliDate) return null;
@@ -84,7 +83,7 @@ export default function CalendarComponent() {
         </select>
       </div>
       <h2>Choose a Nepali Date:</h2>
-      <div>
+      <div style={{width:'50%',margin:'auto'}} >
         <Calendar
           lang={lang}
           wrapperClass="mx-auto "

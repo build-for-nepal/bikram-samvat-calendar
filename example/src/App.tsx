@@ -1,7 +1,5 @@
 import React, { useMemo, useState } from 'react';
 import './App.css';
-import { Calendar } from 'bikram-samvat-calendar';
-import { NepaliDate } from 'bikram-samvat-calendar/types/Calendar';
 import 'bikram-samvat-calendar/index.css';
 import CalendarComponent from './component/calendar';
 import DatePickerComp from './component/date-picker';

@@ -1,10 +1,13 @@
+import nepalHisotricalDates from '../json/nepal.historical.data.json';
 import NepaliDate from 'nepali-date-converter';
+import { DateEventType } from '../types/Calendar';
 
 var adbs = require('ad-bs-converter');
 interface GenerateDateReturnType {
   date: NepaliDate;
   currentMonth: boolean;
 }
+
 export const generateDate = (month: number, year: number): GenerateDateReturnType[] => {
   const bs2ad = adbs.bs2ad(`${year}/${Number(month) + 1}/01`);
   const ad2bs = adbs.ad2bs(`${bs2ad.year}/${bs2ad.month}/${bs2ad.day}`);
@@ -108,4 +111,26 @@ export const parseDate = (date: Date | NepaliDate) => {
     return new NepaliDate(date.toJsDate());
   }
   return undefined;
+};
+
+const monthInEnglish = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+export const getDateEvent = (date: Date): DateEventType => {
+  let currentMonth = monthInEnglish[date.getMonth()];
+  let currentDate = date.getDate();
+let event = nepalHisotricalDates[`${currentMonth} ${currentDate}`] as DateEventType;
+  return event;
 };

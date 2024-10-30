@@ -131,9 +131,10 @@ export default App;
 | `lang` | `en|np`   |     `np`    | For changing style nepali lang to english.           |
 | `calendarRef` | `React.React.MutableRefObject<HTMLDivElement>`   |     `undefined`    | Use this calendarRef for custom logic      |
 | `onPrevYear` |  `(year:number)=>void` | `''` | The currently toggle  year      |
+| `showDateEvent` |  `boolean` | `true` | Showing historic date events  |
 | `onNextYear` |  `(year:number)=>void` | `''` | The currently toggle year  |
 | `onMonthSelect` |  `(name:string,monthIndex:number)=>void` | `''` | The currently selected month with name and index |
-| `onCellClick` |  `(date:NepaliDate,cellRef:React.React.MutableRefObject<HTMLDivElement>)=>void` | `''` | The  clicked month cell date  and Cell ref for custom logic|
+| `onCellClick` |  `(date:NepaliDate,cellRef:React.React.MutableRefObject<HTMLDivElement>,event:DateEventType)=>void` | `''` | The  clicked month cell date  and Cell ref for custom logic|
 
 
 

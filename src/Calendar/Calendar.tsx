@@ -1,8 +1,8 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { daysObj, enToNpNum, generateDate, months } from '../util/calendar';
+import { daysObj, enToNpNum, generateDate, getDateEvent, months } from '../util/calendar';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import cn from '../util/cn';
-import { CalendarProps } from '../types/Calendar';
+import { CalendarProps, DateEventType } from '../types/Calendar';
 import NepaliDate from 'nepali-date-converter';
 const MAX_NP_YEAR = 2089;
 const MIN_NP_YEAR = 2000;
@@ -17,6 +17,7 @@ export default function Calendar({
   onPrevYear,
   onYearSelect,
   calendarRef,
+  showDateEvent = true,
   onMonthSelect,
 }: CalendarProps) {
   const currentDate = value instanceof Date ? new NepaliDate(value) : value;
@@ -65,10 +66,10 @@ export default function Calendar({
       return prev;
     });
   };
-  const handleSelecteDate = (date: NepaliDate, ref: HTMLDivElement) => {
+  const handleSelecteDate = (date: NepaliDate, ref: HTMLDivElement,event: DateEventType) => {
     onChange(date);
     setSelectedDate(date);
-    onCellClick?.(date, ref); // Pass the cell reference
+    onCellClick?.(date, ref, event); // Pass the cell reference
   };
   const resetDateToToday = () => {
     setSelectedYear(currentDate.getYear());
@@ -83,7 +84,7 @@ export default function Calendar({
     <div
       ref={calendarRef}
       className={cn(
-        'min-w-[400px] max-w-[500px] w-fit border border-collapse shadow-md bg-white',
+        'min-w-[400px]  max-w-[600px] w-full border border-collapse shadow-md bg-white',
         wrapperClass
       )}
     >
@@ -153,17 +154,20 @@ export default function Calendar({
           const today = selectedDate?.toJsDate()?.toDateString() == date?.toJsDate().toDateString();
           const selected =
             selectedDate?.toJsDate().toDateString() == date.toJsDate().toDateString();
+
+          const event = getDateEvent(date.toJsDate());
           return (
             <div
               ref={(el) => (cellRefs.current[index] = el)}
               key={index}
-              onClick={() => handleSelecteDate(date, cellRefs.current[index])}
+              onClick={() => handleSelecteDate(date, cellRefs.current[index], event)}
               className={cn(
-                'cursor-pointer  h-14 text-sm  transition-all text-center  border-b border-r   grid place-content-center',
+                'cursor-pointer  h-14 text-sm  transition-all text-center  border-b border-r  relative  grid place-content-center',
                 {
                   [`text-primary ${theme?.today}`]: today,
                   [`bg-primary text-black ${theme?.selected}`]: selected,
                   [`hover:bg-muted  ${theme?.hover}`]: !selected,
+                  ['text-red-500'] : showDateEvent && Boolean(event)
                 },
                 theme?.dateGrid
               )}
@@ -178,6 +182,11 @@ export default function Calendar({
               >
                 {isLangNepali ? enToNpNum(date.getDate().toString()) : date.getDate()}
               </h1>
+             {
+              showDateEvent &&  <span className='absolute text-ellipsis max-h-[1.5rem] bottom-[.1em]  w-full overflow-hidden whitespace-pre-wrap'  style={{fontSize:"10px"}}>
+              {event?.name[lang]}
+            </span>
+             }
             </div>
           );
         })}
