@@ -184,7 +184,7 @@ export default function Calendar({
               </h1>
               {showDateEvent && (
                 <span
-                  className="absolute text-ellipsis max-h-[1.5rem] bottom-[.1em]  w-full overflow-hidden whitespace-pre-wrap"
+                  className="absolute text-ellipsis max-h-[1.5rem] bottom-[.1em]  w-full flex items-end justify-center overflow-hidden whitespace-pre-wrap"
                   style={{ fontSize: '10px' }}
                 >
                   {event?.name[lang]}
