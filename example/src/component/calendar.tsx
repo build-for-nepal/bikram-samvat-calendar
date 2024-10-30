@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Calendar } from 'bikram-samvat-calendar';
-import { NepaliDate } from 'bikram-samvat-calendar/types/Calender';
+import { NepaliDate } from 'bikram-samvat-calendar/types/Calendar';
 import { copyToClipboard } from '../utils';
 
 export default function CalendarComponent() {
