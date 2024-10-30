@@ -1,0 +1,34 @@
+name: Deploy Examples to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install dependencies in example
+        run: |
+          cd example
+          npm install
+
+      - name: Build example (if applicable)
+        run: |
+          cd example
+          npm run build  
+
+      - name: Deploy Example
+        run: |
+          cd examples
+          npx gh-pages -d .  # Deploy the current directory (example)
