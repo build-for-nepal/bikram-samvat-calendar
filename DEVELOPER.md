@@ -16,9 +16,6 @@ To add the `bikram-samvat-calendar` package to your project, run the following c
 ```bash
 npm install bikram-samvat-calendar
 ```
-
-
-
 # Importing Components
  ### Calendar Component
  To use the Calendar component, import it in your desired file:
