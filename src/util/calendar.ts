@@ -135,9 +135,9 @@ export const getDateEvent = (date: Date, userEvents: CustomeDateEvent[] = []): D
   let event = nepalHisotricalDates[`${currentMonth} ${currentDate}`] as DateEventType;
 
   let userCustomEventObj = createDateEventObj(userEvents);
-    
-  if(Object.keys(userCustomEventObj).length){
-     event = userCustomEventObj[`${currentYear}_${currentMonth}_${currentDate}`] as DateEventType;
+
+  if (Object.keys(userCustomEventObj).length) {
+    event = userCustomEventObj[`${currentYear}_${currentMonth}_${currentDate}`] as DateEventType;
   }
 
   return event;
@@ -153,14 +153,14 @@ function createDateEventObj(userEvents: CustomeDateEvent[]) {
 
     let key = `${year}_${month}_${date}`;
     eventObject[key] = {
-        name: {
-          np: event.eventName,
-          en: event.eventName,
-        },
-        description: {
-          np: event.description,
-          en: event.description,
-        },
+      name: {
+        np: event.eventName,
+        en: event.eventName,
+      },
+      description: {
+        np: event.description,
+        en: event.description,
+      },
     };
   }
   return eventObject;

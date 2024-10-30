@@ -1,4 +1,4 @@
-import React, {  useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { daysObj, enToNpNum, generateDate, getDateEvent, months } from '../util/calendar';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import cn from '../util/cn';
@@ -19,15 +19,13 @@ export default function Calendar({
   calendarRef,
   showDateEvent = true,
   onMonthSelect,
-  eventDates
+  eventDates,
 }: CalendarProps) {
   const currentDate = value instanceof Date ? new NepaliDate(value) : value;
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
   const [selectedYear, setSelectedYear] = useState(currentDate.getYear());
   const [selectedDate, setSelectedDate] = useState<NepaliDate | null>(currentDate);
   const cellRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-
 
   const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const month = Number(event.target.value);
@@ -80,7 +78,6 @@ export default function Calendar({
     setSelectedMonth(currentDate.getMonth());
     setSelectedDate(new NepaliDate());
   };
-
 
   const isLangNepali = useMemo(() => {
     return lang === 'np';
@@ -161,7 +158,7 @@ export default function Calendar({
           const selected =
             selectedDate?.toJsDate().toDateString() == date.toJsDate().toDateString();
 
-          const event = getDateEvent(date.toJsDate(),eventDates);
+          const event = getDateEvent(date.toJsDate(), eventDates);
           return (
             <div
               ref={(el) => (cellRefs.current[index] = el)}
