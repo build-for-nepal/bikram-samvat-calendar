@@ -87,6 +87,7 @@ export default function CalendarComponent() {
         <Calendar
           lang={lang}
           wrapperClass="mx-auto "
+
           value={nepaliDate || new Date()}
           onChange={handleChangeDate}
         />
