@@ -152,3 +152,6 @@ Your contributions make our work easier and enhance the overall quality of our p
 Feel free to copy and paste this Markdown content into your README file. If you need any changes or additions, let me know!
 
 
+
+---
+For more in-depth information about developing web application using the nepal-map package, please refer to the [Developer Guide](DEVELOPER.md).
