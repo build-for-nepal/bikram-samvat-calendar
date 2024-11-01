@@ -19,12 +19,14 @@ export default function Calendar({
   calendarRef,
   showDateEvent = true,
   onMonthSelect,
+  eventDates,
 }: CalendarProps) {
   const currentDate = value instanceof Date ? new NepaliDate(value) : value;
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
   const [selectedYear, setSelectedYear] = useState(currentDate.getYear());
   const [selectedDate, setSelectedDate] = useState<NepaliDate | null>(currentDate);
   const cellRefs = useRef<(HTMLDivElement | null)[]>([]);
+
   const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const month = Number(event.target.value);
     setSelectedDate(null);
@@ -80,6 +82,7 @@ export default function Calendar({
   const isLangNepali = useMemo(() => {
     return lang === 'np';
   }, [lang]);
+
   return (
     <div
       ref={calendarRef}
@@ -155,7 +158,7 @@ export default function Calendar({
           const selected =
             selectedDate?.toJsDate().toDateString() == date.toJsDate().toDateString();
 
-          const event = getDateEvent(date.toJsDate());
+          const event = getDateEvent(date.toJsDate(), eventDates);
           return (
             <div
               ref={(el) => (cellRefs.current[index] = el)}

@@ -24,6 +24,7 @@ export interface CalendarProps {
   onPrevYear?: (newYear: number) => void;
   onYearSelect?: (newYear: number) => void;
   onMonthSelect?: (name: string, monthIndex: number) => void;
+  eventDates?: CustomeDateEvent[];
 }
 
 export interface NepaliDate extends NepaliDateType {}
@@ -37,3 +38,25 @@ type DateEventDetailType = {
   np: string;
   en: string;
 };
+type Month =
+  | number
+  | 'Baishakh'
+  | 'Jestha'
+  | 'Ashadh'
+  | 'Shrawan'
+  | 'Bhadra'
+  | 'Ashwin'
+  | 'Kartik'
+  | 'Mangsir'
+  | 'Poush'
+  | 'Magh'
+  | 'Falgun'
+  | 'Chaitra';
+
+export interface CustomeDateEvent {
+  eventName: string;
+  year: string;
+  month: number | Month;
+  description?: string;
+  date: number | string;
+}
