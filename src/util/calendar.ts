@@ -94,9 +94,9 @@ export const daysObj = {
   en: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
   np: ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'],
 };
-export const convertLangToLocale = (num: string,lang:"en"|'np') => {
-  if(lang == 'en'){
-    return num
+export const convertLangToLocale = (num: string, lang: 'en' | 'np') => {
+  if (lang == 'en') {
+    return num;
   }
   return num
     .split('')
@@ -156,8 +156,7 @@ function createDateEventObj(userEvents: CustomeDateEvent[]) {
   return eventObject;
 }
 
-
-export const generateDecadesInRange = (startYear:number, endYear:number) => {
+export const generateDecadesInRange = (startYear: number, endYear: number) => {
   const decades = [];
   let startDecade = Math.floor(startYear / 10) * 10;
   const endDecade = Math.floor(endYear / 10) * 10;
@@ -169,11 +168,16 @@ export const generateDecadesInRange = (startYear:number, endYear:number) => {
   return decades;
 };
 
-export const  navigationTextHelper  = (newYear:number,selectedMonth:number,view:string,lang:langType)=>{
-  let text = `${convertLangToLocale(newYear.toString(),lang)}`
-  if(view ==''){
-     text = `${months[lang][selectedMonth]} ${convertLangToLocale(newYear.toString(),lang)}`
+export const navigationTextHelper = (
+  newYear: number,
+  selectedMonth: number,
+  view: string,
+  lang: langType
+) => {
+  let text = `${convertLangToLocale(newYear.toString(), lang)}`;
+  if (view == '') {
+    text = `${months[lang][selectedMonth]} ${convertLangToLocale(newYear.toString(), lang)}`;
   }
 
   return text;
-}
+};

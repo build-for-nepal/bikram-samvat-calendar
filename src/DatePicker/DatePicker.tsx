@@ -43,19 +43,19 @@ const DatePicker = ({
   eventDates,
   onNextMonth,
   calendarRef,
-  onPrevMonth
+  onPrevMonth,
 }: Props) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const handleDateChange = (date: NepaliDate) => {
     onChange?.(date);
-    setShowCalendar(false)
+    setShowCalendar(false);
   };
   const toggleCalendar = () => {
     setShowCalendar((prev) => !prev);
   };
- 
+
   return (
     <div
       style={{ position: 'relative' }}
