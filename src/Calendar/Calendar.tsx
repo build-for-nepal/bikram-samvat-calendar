@@ -90,8 +90,9 @@ export default function Calendar({
     return lang === 'np';
   }, [lang]);
   const iconSize = 60;
-  const DatePickBody = <>
-   <div className={cn('grid grid-cols-7 text-sm  bg-[#ffffff] shadow-sm select-none')}>
+  const DatePickBody = (
+    <>
+      <div className={cn('grid grid-cols-7 text-sm  bg-[#ffffff] shadow-sm select-none')}>
         {daysObj[lang].map((day, index) => (
           <h1
             key={index}
@@ -151,16 +152,14 @@ export default function Calendar({
         })}
       </div>
     </>
+  );
 
-    const maxYear = 2000;
-    const steps = 10;
+  const maxYear = 2000;
+  const steps = 10;
 
-    const [year,setYear] = useState(currentDate.getYear())
-    const [action,setShowAction] = useState('dates')
-    const handleClickOnYearSelection = () =>{
-     
-    }
-   
+  const [year, setYear] = useState(currentDate.getYear());
+  const [action, setShowAction] = useState('dates');
+  const handleClickOnYearSelection = () => {};
 
   return (
     <div
@@ -179,8 +178,12 @@ export default function Calendar({
             <MdKeyboardArrowLeft className="hover:bg-muted" />
           </button>
         </div>
-        <div onClick={handleClickOnYearSelection} className="w-[55%] select-none flex justify-center  items-center text-center hover:bg-muted cursor-pointer">
-           {months[lang][selectedMonth]} {isLangNepali ? enToNpNum(selectedYear.toString()) : selectedYear}          
+        <div
+          onClick={handleClickOnYearSelection}
+          className="w-[55%] select-none flex justify-center  items-center text-center hover:bg-muted cursor-pointer"
+        >
+          {months[lang][selectedMonth]}{' '}
+          {isLangNepali ? enToNpNum(selectedYear.toString()) : selectedYear}
         </div>
         <div className="w-[20%] flex justify-between items-center">
           <button className="hover:bg-muted text-center flex justify-center items-center  w-1/2 h-full ">
@@ -192,19 +195,23 @@ export default function Calendar({
         </div>
       </div>
 
-      <div className='p-4 grid grid-cols-3 place-content-center '>
-        {
-          Array.from({
-            length:6
-          },(_,k)=> k+1).map((item,key)=>{
-            return <div className='w-[150px] cursor-pointer flex items-center justify-center h-[90px] text-center hover:bg-muted font-medium' key={key}>
+      <div className="p-4 grid grid-cols-3 place-content-center ">
+        {Array.from(
+          {
+            length: 6,
+          },
+          (_, k) => k + 1
+        ).map((item, key) => {
+          return (
+            <div
+              className="w-[150px] cursor-pointer flex items-center justify-center h-[90px] text-center hover:bg-muted font-medium"
+              key={key}
+            >
               {`201${key}`}
             </div>
-          })
-        }
+          );
+        })}
       </div>
-     
     </div>
   );
 }
-
