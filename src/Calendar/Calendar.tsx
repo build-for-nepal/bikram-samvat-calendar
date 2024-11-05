@@ -1,6 +1,13 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { daysObj, enToNpNum, generateDate, getDateEvent, months } from '../util/calendar';
+import { daysObj, enToNpNum, generateDate, getDateEvent, months, npNums } from '../util/calendar';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import {
+  MdKeyboardArrowLeft,
+  MdKeyboardArrowRight,
+  MdOutlineKeyboardDoubleArrowLeft,
+  MdOutlineKeyboardDoubleArrowRight,
+} from 'react-icons/md';
+
 import cn from '../util/cn';
 import { CalendarProps, DateEventType } from '../types/Calendar';
 import NepaliDate from 'nepali-date-converter';
@@ -82,63 +89,9 @@ export default function Calendar({
   const isLangNepali = useMemo(() => {
     return lang === 'np';
   }, [lang]);
-
-  return (
-    <div
-      ref={calendarRef}
-      className={cn(
-        'min-w-[400px]  max-w-[600px] w-full border border-collapse shadow-md bg-white rounded-md',
-        wrapperClass
-      )}
-    >
-      <div className={cn('flex justify-between p-2 items-center mb-4', theme?.header)}>
-        <div className="flex items-center">
-          <select
-            value={selectedYear}
-            onChange={handleYearChange}
-            className="p-2 border rounded focus:outline-none focus-visible::outline-none "
-          >
-            {Array.from({ length: 90 }, (_, i) => {
-              return {
-                npYear: 2000 + i,
-              };
-            }).map(({ npYear }) => (
-              <option key={npYear} value={npYear}>
-                {isLangNepali ? enToNpNum(npYear.toString()) : npYear}
-              </option>
-            ))}
-          </select>
-          <select
-            value={selectedMonth}
-            onChange={handleMonthChange}
-            className="ml-2 p-2 border rounded focus:outline-none focus-visible::outline-none"
-          >
-            {months[lang].map((month, index) => (
-              <option key={index} value={index}>
-                {month}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex gap-5 items-center">
-          <GrFormPrevious
-            className={cn('w-5 h-5 cursor-pointer hover:scale-105 transition-all', {
-              'cursor-not-allowed  text-gray-400 ': selectedYear === MIN_NP_YEAR,
-            })}
-            onClick={handlePrevYear}
-          />
-          <h1 className="cursor-pointer   transition-all" onClick={resetDateToToday}>
-            {isLangNepali ? 'आज' : 'Today'}
-          </h1>
-          <GrFormNext
-            className={cn('w-5 h-5 cursor-pointer hover:scale-105 transition-all', {
-              'cursor-not-allowed  text-gray-400 ': selectedYear === MAX_NP_YEAR,
-            })}
-            onClick={handleNextYear}
-          />
-        </div>
-      </div>
-      <div className={cn('grid grid-cols-7 text-sm  bg-[#ffffff] shadow-sm select-none')}>
+  const iconSize = 60;
+  const DatePickBody = <>
+   <div className={cn('grid grid-cols-7 text-sm  bg-[#ffffff] shadow-sm select-none')}>
         {daysObj[lang].map((day, index) => (
           <h1
             key={index}
@@ -151,7 +104,6 @@ export default function Calendar({
           </h1>
         ))}
       </div>
-
       <div className="grid grid-cols-7  border-collapse">
         {generateDate(selectedMonth, selectedYear).map(({ date }, index) => {
           const today = selectedDate?.toJsDate()?.toDateString() == date?.toJsDate().toDateString();
@@ -198,6 +150,61 @@ export default function Calendar({
           );
         })}
       </div>
+    </>
+
+    const maxYear = 2000;
+    const steps = 10;
+
+    const [year,setYear] = useState(currentDate.getYear())
+    const [action,setShowAction] = useState('dates')
+    const handleClickOnYearSelection = () =>{
+     
+    }
+   
+
+  return (
+    <div
+      ref={calendarRef}
+      className={cn(
+        'min-w-[400px]  max-w-[600px] w-full border border-collapse shadow-md bg-white rounded-md',
+        wrapperClass
+      )}
+    >
+      <div className={cn('flex justify-between h-[40px]', theme?.header)}>
+        <div className="w-[20%] flex justify-between items-center">
+          <button className="hover:bg-muted text-center flex justify-center items-center  w-1/2 h-full ">
+            <MdOutlineKeyboardDoubleArrowLeft />
+          </button>
+          <button className="hover:bg-muted text-center flex justify-center items-center  w-1/2 h-full ">
+            <MdKeyboardArrowLeft className="hover:bg-muted" />
+          </button>
+        </div>
+        <div onClick={handleClickOnYearSelection} className="w-[55%] select-none flex justify-center  items-center text-center hover:bg-muted cursor-pointer">
+           {months[lang][selectedMonth]} {isLangNepali ? enToNpNum(selectedYear.toString()) : selectedYear}          
+        </div>
+        <div className="w-[20%] flex justify-between items-center">
+          <button className="hover:bg-muted text-center flex justify-center items-center  w-1/2 h-full ">
+            <MdKeyboardArrowRight />
+          </button>
+          <button className="hover:bg-muted text-center flex justify-center items-center  w-1/2 h-full ">
+            <MdOutlineKeyboardDoubleArrowRight className="hover:bg-muted" />
+          </button>
+        </div>
+      </div>
+
+      <div className='p-4 grid grid-cols-3 place-content-center '>
+        {
+          Array.from({
+            length:6
+          },(_,k)=> k+1).map((item,key)=>{
+            return <div className='w-[150px] cursor-pointer flex items-center justify-center h-[90px] text-center hover:bg-muted font-medium' key={key}>
+              {`201${key}`}
+            </div>
+          })
+        }
+      </div>
+     
     </div>
   );
 }
+
