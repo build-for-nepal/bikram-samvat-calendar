@@ -113,8 +113,10 @@ export const parseDate = (date: Date | NepaliDate) => {
   return undefined;
 };
 
-
-export const getDateEvent = (date: NepaliDate, userEvents: CustomeDateEvent[] = []): DateEventType => {
+export const getDateEvent = (
+  date: NepaliDate,
+  userEvents: CustomeDateEvent[] = []
+): DateEventType => {
   let currentMonth = months.en[date.getMonth()];
   let currentDate = date.getDate();
   let currentYear = date.getYear();

@@ -167,14 +167,13 @@ export default function Calendar({
               className={cn(
                 'cursor-pointer  h-14 text-sm  transition-all text-center  border-b  relative  grid place-content-center',
                 {
-                  [`text-primary ${theme?.today??''}`]: today,
+                  [`text-primary ${theme?.today ?? ''}`]: today,
                   [`bg-primary text-black ${theme?.selected}`]: selected,
                   [`hover:bg-muted  ${theme?.hover}`]: !selected,
                   ['text-red-500']: showDateEvent && Boolean(event),
-              
                 },
                 theme?.dateGrid,
-                `${(index+1) % 7 !=0 ?"border-r":""}`
+                `${(index + 1) % 7 != 0 ? 'border-r' : ''}`
               )}
             >
               <h1
