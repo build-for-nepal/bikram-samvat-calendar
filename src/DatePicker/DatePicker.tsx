@@ -39,7 +39,7 @@ const DatePicker = ({
   onYearSelect,
   calendarRef,
   showDateEvent,
-  eventDates
+  eventDates,
 }: Props) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
