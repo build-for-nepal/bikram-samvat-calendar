@@ -77,7 +77,7 @@ export default App;
 | `theme`      | `object` | `{}`         | Theme customization for different parts of the calendar.   |
 | `onChange`   | `function` | `(date:NepaliDate) => {}`   | Callback function triggered when a date is selected. it will give NepaliDate Object      |
 | `value`      | `Date`   | `new Date()`  | The currently selected date (in JavaScript Date format).   |
-
+| `ref` | `React.React.MutableRefObject<HTMLDivElement>`   |     `undefined`    | Use this calendarRef for custom logic      |
  # Nepali Date Picker Component
    
    ```bash 
@@ -129,6 +129,7 @@ export default App;
 | `placeholder`  | `string`                            | `'Select a Date'`     | Placeholder text for the input field when no date is selected.                               |
 | `calenderProps`|       wrapperClass,theme    | default  |         props mentioned in Calendar Component
 | `wrapperClass`|       `string`   | empty  |        |  Additional CSS classes for the wrapper element. 
+| `calendarRef` | `React.React.MutableRefObject<HTMLDivElement>`   |     `undefined`    | Use this calendarRef for custom logic      |
 
 
 
@@ -137,11 +138,13 @@ export default App;
 | Prop         | Type     | Default       | Description                                                |
 |--------------|----------|---------------|------------------------------------------------------------|
 | `lang` | `en|np`   |     `np`    | For changing style nepali lang to english.           |
-| `calendarRef` | `React.React.MutableRefObject<HTMLDivElement>`   |     `undefined`    | Use this calendarRef for custom logic      |
+
 | `onPrevYear` |  `(year:number)=>void` | `''` | The currently toggle  year      |
 | `showDateEvent` |  `boolean` | `true` | Showing historic date events  |
 | `onNextYear` |  `(year:number)=>void` | `''` | The currently toggle year  |
 | `onMonthSelect` |  `(name:string,monthIndex:number)=>void` | `''` | The currently selected month with name and index |
+| `onPrevMonth` |  `(name:string,monthIndex:number)=>void` | `''` | The currently navigate month with name and index |
+| `onNexMonth` |  `(name:string,monthIndex:number)=>void` | `''` | The currently navigated month with name and index |
 | `onCellClick` |  `(date:NepaliDate,cellRef:React.React.MutableRefObject<HTMLDivElement>,event:DateEventType)=>void` | `''` | The  clicked month cell date  and Cell ref for custom logic|
 | `eventDates` |  `CustomeDateEvent[]` | `''` | for the showing custome dates in calendar
 
