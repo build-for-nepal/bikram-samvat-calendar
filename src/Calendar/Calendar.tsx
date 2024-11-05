@@ -87,7 +87,7 @@ export default function Calendar({
     <div
       ref={calendarRef}
       className={cn(
-        'min-w-[400px]  max-w-[600px] w-full border border-collapse shadow-md bg-white',
+        'min-w-[400px]  max-w-[600px] w-full border border-collapse shadow-md bg-white rounded-md',
         wrapperClass
       )}
     >
