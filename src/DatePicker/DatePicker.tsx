@@ -58,14 +58,13 @@ const DatePicker = ({
   };
   const positionCalendar = () => {
     if (showCalendar && inputRef.current && calendarContainer.current) {
-      const { height } = inputRef.current.getBoundingClientRect();  // Get the height using getBoundingClientRect
-        calendarContainer.current.style.top = `${height + 25}px`; // Adding some margin
-
+      const { height } = inputRef.current.getBoundingClientRect();
+      calendarContainer.current.style.top = `${height + 3}px`; 
     }
   };
-  useEffect(()=>{
-    positionCalendar()
-  },[showCalendar])
+  useEffect(() => {
+    positionCalendar();
+  }, [showCalendar]);
 
   return (
     <div
@@ -87,7 +86,7 @@ const DatePicker = ({
       />
       {showCalendar && (
         <div
-        ref={calendarContainer}
+          ref={calendarContainer}
           className={`absolute left-0 bottom-0 z-30 mt-1 transition-opacity duration-300 transform ${
             showCalendar ? 'opacity-100' : 'opacity-0'
           }`}
