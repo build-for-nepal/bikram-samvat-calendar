@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, {useState } from 'react';
 import { Calendar } from 'bikram-samvat-calendar';
 import { NepaliDate } from 'bikram-samvat-calendar/types/Calendar';
 import { copyToClipboard } from '../utils';
@@ -86,8 +86,15 @@ export default function CalendarComponent() {
       <div style={{width:'50%',margin:'auto'}} >
         <Calendar
           lang={lang}
-          wrapperClass="mx-auto "
-
+          wrapperClass="mx-auto"
+          eventDates={[
+            {
+              year:"2081",
+              month: "Ashwin",
+              date:1,
+              eventName:"Custome Date"
+            }
+          ]}
           value={nepaliDate || new Date()}
           onChange={handleChangeDate}
         />

@@ -90,6 +90,14 @@ function App() {
   const onChange = (selectedDate: NepaliDate) => {
     setDate(selectedDate);
   };
+  const customeEventsDate = [
+            {
+              year:"2081",
+              month: "Ashwin",
+              date:1,
+              eventName:"Custome Date"
+            }
+          ];
 
   return (
     <div style={{
@@ -103,7 +111,7 @@ function App() {
       <h1>Nepali Date Picker</h1>
       <p>Selected Date: {date?.toJsDate().toDateString()}</p>
       <p>Formatted Date: {date?.format("ddd DD, MMMM YYYY", "np")}</p>
-      <DatePicker value={date?.toJsDate()} onChange={onChange} />
+      <DatePicker eventDates={customeEventsDate} value={date?.toJsDate()} onChange={onChange} />
     </div>
   );
 }
@@ -135,6 +143,7 @@ export default App;
 | `onNextYear` |  `(year:number)=>void` | `''` | The currently toggle year  |
 | `onMonthSelect` |  `(name:string,monthIndex:number)=>void` | `''` | The currently selected month with name and index |
 | `onCellClick` |  `(date:NepaliDate,cellRef:React.React.MutableRefObject<HTMLDivElement>,event:DateEventType)=>void` | `''` | The  clicked month cell date  and Cell ref for custom logic|
+| `eventDates` |  `CustomeDateEvent[]` | `''` | for the showing custome dates in calendar
 
 
 

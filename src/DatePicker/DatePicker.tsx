@@ -14,6 +14,7 @@ interface Props
     | 'onYearSelect'
     | 'calendarRef'
     | 'showDateEvent'
+    | 'eventDates'
   > {
   inputStyle?: string;
   onChange: (data: NepaliDate) => void;
@@ -38,6 +39,7 @@ const DatePicker = ({
   onYearSelect,
   calendarRef,
   showDateEvent,
+  eventDates
 }: Props) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -113,6 +115,7 @@ const DatePicker = ({
             onPrevYear={onPrevYear}
             onYearSelect={onYearSelect}
             showDateEvent={showDateEvent}
+            eventDates={eventDates}
             lang={lang}
             theme={{
               dateGrid: 'border-none',
