@@ -47,6 +47,7 @@ const DatePicker = ({
 }: Props) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const calendarContainer = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const handleDateChange = (date: NepaliDate) => {
     onChange?.(date);
@@ -55,6 +56,16 @@ const DatePicker = ({
   const toggleCalendar = () => {
     setShowCalendar((prev) => !prev);
   };
+  const positionCalendar = () => {
+    if (showCalendar && inputRef.current && calendarContainer.current) {
+      const { height } = inputRef.current.getBoundingClientRect();  // Get the height using getBoundingClientRect
+        calendarContainer.current.style.top = `${height + 25}px`; // Adding some margin
+
+    }
+  };
+  useEffect(()=>{
+    positionCalendar()
+  },[showCalendar])
 
   return (
     <div
@@ -76,7 +87,8 @@ const DatePicker = ({
       />
       {showCalendar && (
         <div
-          className={`absolute top-0 z-30 mt-1 transition-opacity duration-300 transform ${
+        ref={calendarContainer}
+          className={`absolute left-0 bottom-0 z-30 mt-1 transition-opacity duration-300 transform ${
             showCalendar ? 'opacity-100' : 'opacity-0'
           }`}
         >
