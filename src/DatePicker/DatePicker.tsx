@@ -59,7 +59,7 @@ const DatePicker = ({
   const positionCalendar = () => {
     if (showCalendar && inputRef.current && calendarContainer.current) {
       const { height } = inputRef.current.getBoundingClientRect();
-      calendarContainer.current.style.top = `${height + 3}px`; 
+      calendarContainer.current.style.top = `${height + 3}px`;
     }
   };
   useEffect(() => {
