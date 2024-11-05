@@ -127,7 +127,7 @@ export default function Calendar({
             })}
             onClick={handlePrevYear}
           />
-          <h1 className="cursor-pointer hover:scale-105 transition-all" onClick={resetDateToToday}>
+          <h1 className="cursor-pointer   transition-all" onClick={resetDateToToday}>
             {isLangNepali ? 'आज' : 'Today'}
           </h1>
           <GrFormNext
@@ -158,21 +158,23 @@ export default function Calendar({
           const selected =
             selectedDate?.toJsDate().toDateString() == date.toJsDate().toDateString();
 
-          const event = getDateEvent(date.toJsDate(), eventDates);
+          const event = getDateEvent(date, eventDates);
           return (
             <div
               ref={(el) => (cellRefs.current[index] = el)}
               key={index}
               onClick={() => handleSelecteDate(date, cellRefs.current[index], event)}
               className={cn(
-                'cursor-pointer  h-14 text-sm  transition-all text-center  border-b border-r  relative  grid place-content-center',
+                'cursor-pointer  h-14 text-sm  transition-all text-center  border-b  relative  grid place-content-center',
                 {
-                  [`text-primary ${theme?.today}`]: today,
+                  [`text-primary ${theme?.today??''}`]: today,
                   [`bg-primary text-black ${theme?.selected}`]: selected,
                   [`hover:bg-muted  ${theme?.hover}`]: !selected,
                   ['text-red-500']: showDateEvent && Boolean(event),
+              
                 },
-                theme?.dateGrid
+                theme?.dateGrid,
+                `${(index+1) % 7 !=0 ?"border-r":""}`
               )}
             >
               <h1

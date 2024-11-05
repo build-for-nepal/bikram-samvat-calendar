@@ -113,25 +113,11 @@ export const parseDate = (date: Date | NepaliDate) => {
   return undefined;
 };
 
-const monthInEnglish = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
 
-export const getDateEvent = (date: Date, userEvents: CustomeDateEvent[] = []): DateEventType => {
-  let currentMonth = monthInEnglish[date.getMonth()];
+export const getDateEvent = (date: NepaliDate, userEvents: CustomeDateEvent[] = []): DateEventType => {
+  let currentMonth = months.en[date.getMonth()];
   let currentDate = date.getDate();
-  let currentYear = date.getFullYear();
+  let currentYear = date.getYear();
   let event = nepalHisotricalDates[`${currentMonth} ${currentDate}`] as DateEventType;
 
   let userCustomEventObj = createDateEventObj(userEvents);
@@ -139,7 +125,6 @@ export const getDateEvent = (date: Date, userEvents: CustomeDateEvent[] = []): D
   if (Object.keys(userCustomEventObj).length) {
     event = userCustomEventObj[`${currentYear}_${currentMonth}_${currentDate}`] as DateEventType;
   }
-
   return event;
 };
 
