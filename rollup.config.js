@@ -3,6 +3,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import typescript from "rollup-plugin-typescript2";
 import postcss from "rollup-plugin-postcss";
 import terser from "@rollup/plugin-terser";
+import json from '@rollup/plugin-json';
 
 const packageJson = require("./package.json");
 
@@ -23,6 +24,7 @@ export default [
     ],
     plugins: [
       nodeResolve(),
+      json(),
       resolve({
           ignoreGlobal: false,
           include: ['node_modules/**'],

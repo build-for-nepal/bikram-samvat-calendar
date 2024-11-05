@@ -7,7 +7,14 @@ import { parseDate } from '../util/calendar';
 interface Props
   extends Pick<
     CalendarProps,
-    'onCellClick' | 'onMonthSelect' | 'onNextYear' | 'onPrevYear' | 'onYearSelect' | 'calendarRef'
+    | 'onCellClick'
+    | 'onMonthSelect'
+    | 'onNextYear'
+    | 'onPrevYear'
+    | 'onYearSelect'
+    | 'calendarRef'
+    | 'showDateEvent'
+    | 'eventDates'
   > {
   inputStyle?: string;
   onChange: (data: NepaliDate) => void;
@@ -31,6 +38,8 @@ const DatePicker = ({
   onPrevYear,
   onYearSelect,
   calendarRef,
+  showDateEvent,
+  eventDates,
 }: Props) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -105,6 +114,8 @@ const DatePicker = ({
             onNextYear={onNextYear}
             onPrevYear={onPrevYear}
             onYearSelect={onYearSelect}
+            showDateEvent={showDateEvent}
+            eventDates={eventDates}
             lang={lang}
             theme={{
               dateGrid: 'border-none',
