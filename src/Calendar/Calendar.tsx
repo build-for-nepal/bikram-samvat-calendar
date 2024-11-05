@@ -1,5 +1,4 @@
-import React, { useState, useMemo, useCallback, useRef } from 'react';
-import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import React, { useState, useCallback, useRef } from 'react';
 import {
   MdKeyboardArrowLeft,
   MdKeyboardArrowRight,
