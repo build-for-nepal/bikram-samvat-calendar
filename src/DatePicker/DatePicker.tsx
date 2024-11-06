@@ -12,9 +12,11 @@ interface Props
     | 'onNextYear'
     | 'onPrevYear'
     | 'onYearSelect'
-    | 'calendarRef'
     | 'showDateEvent'
     | 'eventDates'
+    | 'onNextMonth'
+    | 'onPrevMonth'
+    | 'calendarRef'
   > {
   inputStyle?: string;
   onChange: (data: NepaliDate) => void;
@@ -37,9 +39,11 @@ const DatePicker = ({
   onNextYear,
   onPrevYear,
   onYearSelect,
-  calendarRef,
   showDateEvent,
   eventDates,
+  onNextMonth,
+  calendarRef,
+  onPrevMonth,
 }: Props) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -47,38 +51,19 @@ const DatePicker = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const handleDateChange = (date: NepaliDate) => {
     onChange?.(date);
+    setShowCalendar(false);
   };
   const toggleCalendar = () => {
     setShowCalendar((prev) => !prev);
   };
-  useEffect(() => {
-    window.addEventListener('click', function (event) {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setShowCalendar(false);
-      }
-    });
-  }, []);
   const positionCalendar = () => {
     if (showCalendar && inputRef.current && calendarContainer.current) {
-      const inputRect = inputRef.current.getBoundingClientRect();
-      const calendarHeight = calendarContainer.current.offsetHeight;
-      const spaceBelow = window.innerHeight - inputRect.bottom;
-      const spaceAbove = inputRect.top;
-
-      if (spaceBelow < calendarHeight && spaceAbove > calendarHeight) {
-        calendarContainer.current.style.top = `${-(calendarHeight + 10)}px`;
-      } else {
-        calendarContainer.current.style.top = `${inputRect.height + 5}px`; // Adding some margin
-      }
+      const { height } = inputRef.current.getBoundingClientRect();
+      calendarContainer.current.style.top = `${height + 3}px`;
     }
   };
-
   useEffect(() => {
     positionCalendar();
-    window.addEventListener('scroll', positionCalendar);
-    return () => {
-      window.addEventListener('scroll', positionCalendar);
-    };
   }, [showCalendar]);
 
   return (
@@ -101,13 +86,13 @@ const DatePicker = ({
       />
       {showCalendar && (
         <div
-          className={`absolute top-0 z-30 mt-1 transition-opacity duration-300 transform ${
+          ref={calendarContainer}
+          className={`absolute left-0 bottom-0 z-30 mt-1 transition-opacity duration-300 transform ${
             showCalendar ? 'opacity-100' : 'opacity-0'
           }`}
-          ref={calendarContainer}
         >
           <Calendar
-            calendarRef={calendarRef}
+            ref={calendarRef}
             onChange={handleDateChange}
             onCellClick={onCellClick}
             onMonthSelect={onMonthSelect}
@@ -116,6 +101,8 @@ const DatePicker = ({
             onYearSelect={onYearSelect}
             showDateEvent={showDateEvent}
             eventDates={eventDates}
+            onNextMonth={onNextMonth}
+            onPrevMonth={onPrevMonth}
             lang={lang}
             theme={{
               dateGrid: 'border-none',

@@ -1,6 +1,6 @@
 import nepalHisotricalDates from '../json/nepal.historical.data.json';
 import NepaliDate from 'nepali-date-converter';
-import { CustomeDateEvent, DateEventType } from '../types/Calendar';
+import { CustomeDateEvent, DateEventType, langType } from '../types/Calendar';
 
 var adbs = require('ad-bs-converter');
 interface GenerateDateReturnType {
@@ -94,7 +94,10 @@ export const daysObj = {
   en: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
   np: ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'],
 };
-export const enToNpNum = (num: string) => {
+export const convertLangToLocale = (num: string, lang: 'en' | 'np') => {
+  if (lang == 'en') {
+    return num;
+  }
   return num
     .split('')
     .map((num) => npNums[num])
@@ -152,3 +155,29 @@ function createDateEventObj(userEvents: CustomeDateEvent[]) {
   }
   return eventObject;
 }
+
+export const generateDecadesInRange = (startYear: number, endYear: number) => {
+  const decades = [];
+  let startDecade = Math.floor(startYear / 10) * 10;
+  const endDecade = Math.floor(endYear / 10) * 10;
+
+  while (startDecade <= endDecade) {
+    decades.push(startDecade);
+    startDecade += 10;
+  }
+  return decades;
+};
+
+export const navigationTextHelper = (
+  newYear: number,
+  selectedMonth: number,
+  view: string,
+  lang: langType
+) => {
+  let text = `${convertLangToLocale(newYear.toString(), lang)}`;
+  if (view == '') {
+    text = `${months[lang][selectedMonth]} ${convertLangToLocale(newYear.toString(), lang)}`;
+  }
+
+  return text;
+};

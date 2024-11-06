@@ -24,6 +24,8 @@ export interface CalendarProps {
   onPrevYear?: (newYear: number) => void;
   onYearSelect?: (newYear: number) => void;
   onMonthSelect?: (name: string, monthIndex: number) => void;
+  onPrevMonth?: (name: string, monthIndex: number) => void;
+  onNextMonth?: (name: string, monthIndex: number) => void;
   eventDates?: CustomeDateEvent[];
 }
 
